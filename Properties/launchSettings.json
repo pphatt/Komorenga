@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Komorenga (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Komorenga (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
