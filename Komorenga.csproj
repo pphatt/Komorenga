@@ -12,7 +12,9 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="ViewModels\SettingsViewModel.xaml" />
     <None Remove="Views\HomePage.xaml" />
+    <None Remove="Views\Library.xaml" />
     <None Remove="Views\Setting.xaml" />
   </ItemGroup>
 
@@ -41,12 +43,22 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\Library.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\Setting.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ViewModels\SettingsViewModel.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

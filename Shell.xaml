@@ -13,7 +13,6 @@
             Grid.Row="0"
             Height="48"
             x:Name="AppTitleBar"
-            Margin="28,0,0,0"
             VerticalAlignment="Top"
             >
             <Grid.ColumnDefinitions>
@@ -23,35 +22,41 @@
             
             <Image
                 Grid.Column="0"
-                x:Name="AppFontIcon"
+                x:Name="TitleBarAppIcon"
                 Width="0"
                 Height="0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center" />
             <TextBlock
-                Margin="12,0,0,0"
+                x:Name="TitleTextBlock" 
+                Margin="20,0,0,0"
                 Grid.Column="1"
                 VerticalAlignment="Center"
-                Text="{x:Bind GetAppTitleFromSystem()}" 
+                Text="Komorenga" 
                 FontWeight="Bold" FontSize="20" />
         </Grid>
 
         <NavigationView
             x:Name="NavigationViewControl"
             IsTitleBarAutoPaddingEnabled="False"
+            
             AlwaysShowHeader="False"
             Header="Default Header"
+            
             IsTabStop="False" 
             IsPaneOpen="False"
+            
+            OpenPaneLength="200"
+            
+            ItemInvoked="NavigationViewControl_ItemInvoked"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             BackRequested="NavigationViewControl_BackRequested" 
-            ItemInvoked="NavigationViewControl_ItemInvoked"
-            OpenPaneLength="200"
             >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Komorenga.Views.HomePage" />
+                <NavigationViewItem Icon="SolidStar" Content="Library" Tag="Komorenga.Views.Library" />
             </NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame" Navigated="ContentFrame_Navigated" Padding="25,10,0,0"/>
+            <Frame x:Name="ContentFrame" Padding="25,10,0,0"/>
         </NavigationView>
     </Grid>
 </Window>

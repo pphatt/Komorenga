@@ -8,6 +8,9 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.UI;
 using WinRT.Interop;
 
+using Komorenga.Views;
+using System.Diagnostics;
+
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -46,7 +49,7 @@ public sealed partial class Shell : Window
         }
 
         NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems.OfType<NavigationViewItem>().First();
-        ContentFrame.Navigate(typeof(Views.HomePage), null, new Microsoft.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo());
+        ContentFrame.Navigate(typeof(HomePage), null, new Microsoft.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo());
     }
 
     private AppWindow GetAppWindowForCurrentWindow()
@@ -54,6 +57,11 @@ public sealed partial class Shell : Window
         IntPtr hWnd = WindowNative.GetWindowHandle(this);
         WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
         return AppWindow.GetFromWindowId(wndId);
+    }
+
+    public string GetAppTitleFromSystem()
+    {
+        return Windows.ApplicationModel.Package.Current.DisplayName;
     }
 
     private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
@@ -67,19 +75,14 @@ public sealed partial class Shell : Window
         };
     }
 
-    public string GetAppTitleFromSystem()
-    {
-        return Windows.ApplicationModel.Package.Current.DisplayName;
-    }
-
     private void NavigationViewControl_ItemInvoked(NavigationView sender,
                   NavigationViewItemInvokedEventArgs args)
     {
         if (args.IsSettingsInvoked == true)
         {
-            ContentFrame.Navigate(typeof(Views.Setting), null, args.RecommendedNavigationTransitionInfo);
+            ContentFrame.Navigate(typeof(Setting), null, args.RecommendedNavigationTransitionInfo);
         }
-        else if (args.InvokedItemContainer != null && (args.InvokedItemContainer.Tag != null))
+        else if (args.InvokedItemContainer != null && args.InvokedItemContainer.Tag != null)
         {
             Type newPage = Type.GetType(args.InvokedItemContainer.Tag.ToString());
             ContentFrame.Navigate(newPage, null, args.RecommendedNavigationTransitionInfo);
@@ -89,24 +92,5 @@ public sealed partial class Shell : Window
     private void NavigationViewControl_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
     {
         if (ContentFrame.CanGoBack) ContentFrame.GoBack();
-    }
-
-    private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
-    {
-        NavigationViewControl.IsBackEnabled = ContentFrame.CanGoBack;
-
-        if (ContentFrame.SourcePageType == typeof(Views.Setting))
-        {
-            // SettingsItem is not part of NavView.MenuItems, and doesn't have a Tag.
-            NavigationViewControl.SelectedItem = (NavigationViewItem)NavigationViewControl.SettingsItem;
-        }
-        else if (ContentFrame.SourcePageType != null)
-        {
-            NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems
-                .OfType<NavigationViewItem>()
-                .First(n => n.Tag.Equals(ContentFrame.SourcePageType.FullName.ToString()));
-        }
-
-        NavigationViewControl.Header = ((NavigationViewItem)NavigationViewControl.SelectedItem)?.Content?.ToString();
     }
 }
