@@ -56,7 +56,7 @@
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Komorenga.Views.HomePage" />
                 <NavigationViewItem Icon="SolidStar" Content="Library" Tag="Komorenga.Views.Library" />
             </NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame" Padding="25,10,0,0"/>
+            <Frame x:Name="ContentFrame" Padding="20,10,0,0"/>
         </NavigationView>
     </Grid>
 </Window>
