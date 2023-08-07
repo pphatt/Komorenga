@@ -1,3 +1,4 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -9,8 +10,29 @@ namespace Komorenga.Views;
 /// </summary>
 public sealed partial class HomePage : Page
 {
+    //ScrollViewer scrollViewer = ?.FindFirstChild<ScrollViewer>();
+
     public HomePage()
     {
         this.InitializeComponent();
+
+        if (scrollViewer != null)
+        {
+            // Attach the event handler to the ViewChanged event
+            scrollViewer.ViewChanged += OnScrollViewChanged;
+        }
+
+        // The event handler for the ViewChanged event
+        void OnScrollViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            // Get the vertical and horizontal scroll offsets
+            double verticalOffset = scrollViewer.VerticalOffset;
+            double horizontalOffset = scrollViewer.HorizontalOffset;
+
+            // Use the offsets as needed
+            // For example, you can print them out
+            System.Diagnostics.Debug.WriteLine("Vertical Offset: " + verticalOffset);
+            System.Diagnostics.Debug.WriteLine("Horizontal Offset: " + horizontalOffset);
+        }
     }
 }
