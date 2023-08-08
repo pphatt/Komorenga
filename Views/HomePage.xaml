@@ -135,7 +135,7 @@
             </Grid>
 
             <ScrollViewer Grid.Row="2" VerticalAlignment="Top" 
-                          Height="230" Width="Auto" 
+                          Height="280" Width="Auto" 
                           HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
                           x:Name="scrollViewer"
                           >
@@ -153,15 +153,29 @@
                         <ColumnDefinition Width="160"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel 
-                        Grid.Column="0"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel 
+                            Grid.Row="0"
+                            Height="230"
+                            CornerRadius="8"
+                            BorderThickness="1"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                        >
+                            <Image Source="/Assets/test_image.jpg" Width="160" Height="Auto" 
+                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" />
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1">Moto Kyuutei Renkinjutsushi no Watashi, Henkyou de Nonbiri Ryouchi Kaitaku Hajimemasu!</TextBlock>
+                        <TextBlock Grid.Row="2">Hinokage Sora, Takahashi Tsutsuji</TextBlock>
+                    </Grid>
 
                     <StackPanel
                         Margin="5 0 0 0"
