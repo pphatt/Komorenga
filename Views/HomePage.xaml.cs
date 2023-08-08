@@ -34,5 +34,34 @@ public sealed partial class HomePage : Page
             System.Diagnostics.Debug.WriteLine("Vertical Offset: " + verticalOffset);
             System.Diagnostics.Debug.WriteLine("Horizontal Offset: " + horizontalOffset);
         }
+
+        //if (scrollViewer != null)
+        //{
+        //    // Set the initial scroll position (for example, scroll to the top left corner)
+        //    scrollViewer.ChangeView(horizontalOffset: 0, verticalOffset: 0, zoomFactor: null);
+        //}
+
+        // You can then change the scroll position programmatically by calling the ChangeView method with the desired offsets
+        //void SetScrollPosition(double horizontalOffset, double verticalOffset)
+        //{
+        //    // Change the scroll position to the desired offsets
+        //    scrollViewer?.ChangeView(horizontalOffset, verticalOffset, zoomFactor: null);
+        //}
+
+        //SetScrollPosition(100, 0);
+    }
+
+    private void TestNext(object sender, RoutedEventArgs e)
+    {
+        bool check = scrollViewer.ChangeView(scrollViewer.HorizontalOffset + 200, 0, 1.0f);
+
+        System.Diagnostics.Debug.WriteLine(check);
+    }
+
+    private void TestBackward(object sender, RoutedEventArgs e)
+    {
+        bool check = scrollViewer.ChangeView(scrollViewer.HorizontalOffset - 200, 0, 1.0f);
+
+        System.Diagnostics.Debug.WriteLine(check);
     }
 }

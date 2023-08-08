@@ -112,7 +112,7 @@
                             HorizontalAlignment="Right"  
                             DefaultLabelPosition="Right"
                             >
-                    <AppBarButton ToolTipService.ToolTip="">
+                    <AppBarButton Click="TestBackward" ToolTipService.ToolTip="">
                         <AppBarButton.Icon>
                             <FontIcon FontSize="14" Glyph="&#xE76B;" />
                         </AppBarButton.Icon>
@@ -122,7 +122,7 @@
                         </AppBarButton.KeyboardAccelerators>
                     </AppBarButton>
 
-                    <AppBarButton ToolTipService.ToolTip="">
+                    <AppBarButton Click="TestNext" ToolTipService.ToolTip="">
                         <AppBarButton.Icon>
                             <FontIcon FontSize="14" Glyph="&#xE76C;" />
                         </AppBarButton.Icon>
@@ -136,7 +136,7 @@
 
             <ScrollViewer Grid.Row="2" VerticalAlignment="Top" 
                           Height="230" Width="Auto" 
-                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled"
+                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
                           x:Name="scrollViewer"
                           >
                 <Grid Margin="0 0 0 0">
