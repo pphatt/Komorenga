@@ -177,93 +177,33 @@
                         <TextBlock Grid.Row="2">Hinokage Sora, Takahashi Tsutsuji</TextBlock>
                     </Grid>
 
-                    <StackPanel
-                        Margin="5 0 0 0"
-                        Grid.Column="1"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>
+                    <Grid Grid.Column="1"
+                          Margin="5 0 0 0"
+                          >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                    <StackPanel 
-                        Margin="5 0 0 0"
-                        Grid.Column="2"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>  
+                        <StackPanel 
+                            Grid.Row="0"
+                            Height="230"
+                            CornerRadius="8"
+                            BorderThickness="1"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+    >
+                            <Image Source="/Assets/da952d85-8e45-46d1-90ad-8ee312c3e23a.jpg" Width="160" Height="Auto" 
+                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" />
+                        </StackPanel>
 
-                    <StackPanel 
-                        Margin="5 0 0 0"
-                        Grid.Column="3"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>
-
-                    <StackPanel 
-                        Margin="5 0 0 0"
-                        Grid.Column="4"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>          
-
-                    <StackPanel 
-                        Margin="5 0 0 0"
-                        Grid.Column="5"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>
-
-                    <StackPanel 
-                        Margin="5 0 0 0"
-                        Grid.Column="6"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>
-
-                    <StackPanel 
-                        Margin="5 0 0 0"
-                        Grid.Column="7"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>
-
-                    <StackPanel 
-                        Margin="5 0 0 0"
-                        Grid.Column="8"
-                        Height="230"
-                        CornerRadius="8"
-                        Padding="12"
-                        BorderThickness="1"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    ></StackPanel>
+                        <TextBlock Grid.Row="1">
+                            Sekai de Yuiitsu no (Shinken Zukai) na no ni Senryokugai to Yobareta Ore, Kakusei Shita (Shinken) to Saikyou ni Naru
+                        </TextBlock>
+                        <TextBlock Grid.Row="2">Oota Akira, Akechi Shizuku</TextBlock>
+                    </Grid>
                 </Grid>
             </ScrollViewer>
         </Grid>
