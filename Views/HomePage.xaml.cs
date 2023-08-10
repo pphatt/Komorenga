@@ -6,6 +6,11 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.IO;
+using System.Net.Http.Json;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using Komorenga.Models;
+using static Komorenga.Models.MangaJSONModels;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -17,6 +22,7 @@ namespace Komorenga.Views;
 public sealed partial class HomePage : Page
 {
     //ScrollViewer scrollViewer = ?.FindFirstChild<ScrollViewer>();
+    private readonly HttpClient _httpClient;
 
     public HomePage()
     {
@@ -51,19 +57,71 @@ public sealed partial class HomePage : Page
             "hasAvailableChapters=true&" +
             "createdAtSince=2023-07-10T03%3A06%3A02";
 
-        // 6d48d4cb-41e6-452b-a0be-c159d10ac674.png
+        FetchData("https://api.mangadex.org/manga?includes[]=cover_art&includes[]=artist&includes[]=author&order[followedCount]=desc&contentRating[]=safe&contentRating[]=suggestive&hasAvailableChapters=true&createdAtSince=2023-07-10T03%3A06%3A02");
+
         // bf0e6911-d03c-4b3c-8ee1-32e6220ba4a6
+        // 6d48d4cb-41e6-452b-a0be-c159d10ac674.png
+    }
 
-        var request = WebRequest.Create(url);
-        request.Method = "GET";
+    private async Task FetchData(string url)
+    {
+        using (HttpClient httpClient = new HttpClient())
+        {
+            try
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(url);
 
-        using var webResponse = request.GetResponse();
-        using var webStream = webResponse.GetResponseStream();
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    // Process the response data as needed
 
-        using var reader = new StreamReader(webStream);
-        var data = reader.ReadToEnd();
+                    System.Diagnostics.Debug.WriteLine(responseData);
 
-        System.Diagnostics.Debug.WriteLine(data);
+                    //TempDataType parsedData = JsonConvert.DeserializeObject<TempDataType>(responseData);
+
+                    //System.Diagnostics.Debug.WriteLine(parsedData.data.Count);
+
+                    //for (int i = 0; i < parsedData.data.Count; i++)
+                    //{
+                    //    System.Diagnostics.Debug.WriteLine(parsedData.data[i].id);
+                    //}
+
+                    MangaJSON manga = JsonConvert.DeserializeObject<MangaJSON>(responseData);
+
+                    System.Diagnostics.Debug.WriteLine(manga.data.Count);
+
+                    for (int i = 0; i < manga.data.Count; i++)
+                    {
+                        System.Diagnostics.Debug.WriteLine(manga.data[i].id);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+    }
+
+    public class TempDataType1
+    {
+        public string id
+        {
+            get; set;
+        }
+    }
+
+    public class TempDataType
+    {
+        public List<TempDataType1> data
+        {
+            get; set;
+        }
     }
 
     private void TestNext(object sender, RoutedEventArgs e)
