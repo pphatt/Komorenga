@@ -6,7 +6,14 @@
     xmlns:local="using:Komorenga.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    
+    xmlns:viewmodels="using:Komorenga.ViewModels"
+    >
+
+    <Page.DataContext>
+        <viewmodels:HomePageViewModels x:Name="ViewModel" />
+    </Page.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,7 +21,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <TextBlock
             Grid.Row="0"
             Text="Home" FontWeight="Bold" FontSize="18"/>
@@ -139,7 +146,7 @@
                           HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
                           x:Name="scrollViewer"
                           >
-                <Grid Margin="0 0 0 0">
+                <!--<Grid Margin="0 0 0 0" x:Name="GridPanel">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="160"/>
                         <ColumnDefinition Width="160"/>
@@ -194,16 +201,38 @@
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
-    >
-                            <Image Source="/Assets/da952d85-8e45-46d1-90ad-8ee312c3e23a.jpg" Width="160" Height="Auto" 
-                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" />
+                        >
+                            <Image Width="160" Height="Auto" 
+                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
+                                <Image.Source>
+                                    <BitmapImage UriSource="https://uploads.mangadex.org/covers/bf0e6911-d03c-4b3c-8ee1-32e6220ba4a6/6d48d4cb-41e6-452b-a0be-c159d10ac674.png" />
+                                </Image.Source>
+                            </Image>
                         </StackPanel>
 
                         <TextBlock Grid.Row="1">
                             Sekai de Yuiitsu no (Shinken Zukai) na no ni Senryokugai to Yobareta Ore, Kakusei Shita (Shinken) to Saikyou ni Naru
                         </TextBlock>
+
                         <TextBlock Grid.Row="2">Oota Akira, Akechi Shizuku</TextBlock>
                     </Grid>
+                </Grid>-->
+
+                <Grid>
+                    <GridView ItemsSource="{x:Bind ViewModel.People}" Margin="10">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="viewmodels:Person">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{x:Bind Name}" Grid.Column="0" />
+                                    <TextBlock Text="{x:Bind Age}" Grid.Column="1" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
                 </Grid>
             </ScrollViewer>
         </Grid>
