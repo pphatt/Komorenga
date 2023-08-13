@@ -119,7 +119,7 @@
                                   FontSize="14" Margin="8 2 0 0" />
                     </Grid>
                 </Button>
-                
+
                 <CommandBar Grid.Column="1"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"  
@@ -129,7 +129,7 @@
                         <AppBarButton.Icon>
                             <FontIcon FontSize="14" Glyph="&#xE76B;" />
                         </AppBarButton.Icon>
-                        
+
                         <AppBarButton.KeyboardAccelerators>
                             <KeyboardAccelerator Modifiers="Control" Key="R"/>
                         </AppBarButton.KeyboardAccelerators>
@@ -139,7 +139,7 @@
                         <AppBarButton.Icon>
                             <FontIcon FontSize="14" Glyph="&#xE76C;" />
                         </AppBarButton.Icon>
-                        
+
                         <AppBarButton.KeyboardAccelerators>
                             <KeyboardAccelerator Modifiers="Control" Key="R"/>
                         </AppBarButton.KeyboardAccelerators>
@@ -148,7 +148,7 @@
             </Grid>
 
             <ScrollViewer Grid.Row="2" VerticalAlignment="Top" 
-                          Height="294" Width="Auto" 
+                          Height="360" Width="Auto" 
                           HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
                           x:Name="scrollViewer"
                           >
@@ -156,24 +156,23 @@
                     <GridView ItemsSource="{x:Bind ViewModel.Manga}">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Manga">
-                                <Grid Width="160" Height="280" Padding="5">
+                                <Grid Width="160" Height="346" Padding="5">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="9*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="8.5*" />
+                                        <RowDefinition Height="2*" />
+                                        <RowDefinition Height="2*" />
                                     </Grid.RowDefinitions>
 
-                                    <StackPanel 
+                                    <StackPanel
                                             Grid.Row="0"
-                                            Height="230"
                                             CornerRadius="8"
                                             BorderThickness="1"
-                                            Padding="0 0 0 0"
                                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                             HorizontalAlignment="Center" VerticalAlignment="Center"
                                         >
-                                        <Image Width="160" Height="230" 
+                                        <!--Height can be 210??-->
+                                        <Image Width="auto" Height="220"
                                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
                                             <Image.Source>
                                                 <BitmapImage UriSource="{x:Bind poster}" />
@@ -182,20 +181,18 @@
                                     </StackPanel>
 
                                     <TextBlock 
-                                        Width="160" 
+                                        Grid.Row="1" 
                                         TextWrapping="Wrap" 
-                                        TextTrimming="WordEllipsis" 
+                                        TextTrimming="WordEllipsis"
                                         MaxLines="2"
-                                        Margin="0 4 0 0" 
                                         FontSize="16"
                                         FontWeight="SemiBold"
-                                        Grid.Row="1" Text="{x:Bind attributes.title.en}"
+                                        Text="{x:Bind attributes.title.en}"
                                         ></TextBlock>
                                     <TextBlock 
-                                        Width="160" 
+                                        Grid.Row="2"
                                         TextWrapping="Wrap" 
                                         TextTrimming="WordEllipsis" 
-                                        Margin="0 4 0 0" Grid.Row="2"
                                     >
                                         Hinokage Sora, Takahashi Tsutsuji
                                     </TextBlock>
@@ -204,22 +201,6 @@
                         </GridView.ItemTemplate>
                     </GridView>
                 </Grid>
-
-                <!--<Grid>
-                    <GridView ItemsSource="{x:Bind ViewModel.Manga}" Margin="10">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Manga">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{x:Bind attributes.title.en}" Grid.Column="0" />
-                                </Grid>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
-                </Grid>-->
             </ScrollViewer>
         </Grid>
     </Grid>

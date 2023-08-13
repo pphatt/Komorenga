@@ -59,6 +59,18 @@ public sealed partial class HomePage : Page
             "hasAvailableChapters=true&" +
             "createdAtSince=2023-07-10T03%3A06%3A02";
 
+        // https://api.mangadex.org/manga?
+        // includes[]=cover_art&
+        // includes[]=artist&
+        // includes[]=author&
+        // order[followedCount]=desc&
+        // contentRating[]=safe&
+        // contentRating[]=suggestive&
+        // hasAvailableChapters=true&
+        // createdAtSince=2023-07-14T09%3A25%3A06
+        
+        
+        
         // bf0e6911-d03c-4b3c-8ee1-32e6220ba4a6
         // 6d48d4cb-41e6-452b-a0be-c159d10ac674.png
     }
