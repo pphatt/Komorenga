@@ -8,12 +8,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     
+    xmlns:utils="using:Komorenga.Utils"
     xmlns:viewmodels="using:Komorenga.ViewModels"
+    xmlns:models ="using:Komorenga.Models"
     >
 
     <Page.DataContext>
         <viewmodels:HomePageViewModels x:Name="ViewModel" />
     </Page.DataContext>
+
+    <Page.Resources>
+        <utils:Utils x:Key="Utils" />
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -142,98 +148,78 @@
             </Grid>
 
             <ScrollViewer Grid.Row="2" VerticalAlignment="Top" 
-                          Height="280" Width="Auto" 
+                          Height="294" Width="Auto" 
                           HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
                           x:Name="scrollViewer"
                           >
-                <!--<Grid Margin="0 0 0 0" x:Name="GridPanel">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="160"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <StackPanel 
-                            Grid.Row="0"
-                            Height="230"
-                            CornerRadius="8"
-                            BorderThickness="1"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                        >
-                            <Image Source="/Assets/test_image.jpg" Width="160" Height="Auto" 
-                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" />
-                        </StackPanel>
-
-                        <TextBlock Grid.Row="1">Moto Kyuutei Renkinjutsushi no Watashi, Henkyou de Nonbiri Ryouchi Kaitaku Hajimemasu!</TextBlock>
-                        <TextBlock Grid.Row="2">Hinokage Sora, Takahashi Tsutsuji</TextBlock>
-                    </Grid>
-
-                    <Grid Grid.Column="1"
-                          Margin="5 0 0 0"
-                          >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <StackPanel 
-                            Grid.Row="0"
-                            Height="230"
-                            CornerRadius="8"
-                            BorderThickness="1"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                        >
-                            <Image Width="160" Height="Auto" 
-                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
-                                <Image.Source>
-                                    <BitmapImage UriSource="https://uploads.mangadex.org/covers/bf0e6911-d03c-4b3c-8ee1-32e6220ba4a6/6d48d4cb-41e6-452b-a0be-c159d10ac674.png" />
-                                </Image.Source>
-                            </Image>
-                        </StackPanel>
-
-                        <TextBlock Grid.Row="1">
-                            Sekai de Yuiitsu no (Shinken Zukai) na no ni Senryokugai to Yobareta Ore, Kakusei Shita (Shinken) to Saikyou ni Naru
-                        </TextBlock>
-
-                        <TextBlock Grid.Row="2">Oota Akira, Akechi Shizuku</TextBlock>
-                    </Grid>
-                </Grid>-->
-
-                <Grid>
-                    <GridView ItemsSource="{x:Bind ViewModel.People}" Margin="10">
+                <Grid Margin="0 0 0 0" x:Name="GridPanel">
+                    <GridView ItemsSource="{x:Bind ViewModel.Manga}">
                         <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="viewmodels:Person">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{x:Bind Name}" Grid.Column="0" />
-                                    <TextBlock Text="{x:Bind Age}" Grid.Column="1" />
+                            <DataTemplate x:DataType="models:Manga">
+                                <Grid Width="160" Height="280" Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="9*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel 
+                                            Grid.Row="0"
+                                            Height="230"
+                                            CornerRadius="8"
+                                            BorderThickness="1"
+                                            Padding="0 0 0 0"
+                                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        >
+                                        <Image Width="160" Height="230" 
+                                               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
+                                            <Image.Source>
+                                                <BitmapImage UriSource="{x:Bind poster}" />
+                                            </Image.Source>
+                                        </Image>
+                                    </StackPanel>
+
+                                    <TextBlock 
+                                        Width="160" 
+                                        TextWrapping="Wrap" 
+                                        TextTrimming="WordEllipsis" 
+                                        MaxLines="2"
+                                        Margin="0 4 0 0" 
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Grid.Row="1" Text="{x:Bind attributes.title.en}"
+                                        ></TextBlock>
+                                    <TextBlock 
+                                        Width="160" 
+                                        TextWrapping="Wrap" 
+                                        TextTrimming="WordEllipsis" 
+                                        Margin="0 4 0 0" Grid.Row="2"
+                                    >
+                                        Hinokage Sora, Takahashi Tsutsuji
+                                    </TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
                 </Grid>
+
+                <!--<Grid>
+                    <GridView ItemsSource="{x:Bind ViewModel.Manga}" Margin="10">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Manga">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{x:Bind attributes.title.en}" Grid.Column="0" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>-->
             </ScrollViewer>
         </Grid>
     </Grid>

@@ -5,9 +5,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Komorenga.Models;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.WindowsAppSDK.Runtime;
 using Newtonsoft.Json;
+using Windows.Foundation;
+using Windows.Media;
 using static Komorenga.Models.MangaJSONModels;
 
 namespace Komorenga.ViewModels;
@@ -32,18 +36,8 @@ internal class HomePageViewModels
                 if (response.IsSuccessStatusCode)
                 {
                     string responseData = await response.Content.ReadAsStringAsync();
-                    // Process the response data as needed
 
                     System.Diagnostics.Debug.WriteLine(responseData);
-
-                    //TempDataType parsedData = JsonConvert.DeserializeObject<TempDataType>(responseData);
-
-                    //System.Diagnostics.Debug.WriteLine(parsedData.data.Count);
-
-                    //for (int i = 0; i < parsedData.data.Count; i++)
-                    //{
-                    //    System.Diagnostics.Debug.WriteLine(parsedData.data[i].id);
-                    //}
 
                     MangaJSON manga = JsonConvert.DeserializeObject<MangaJSON>(responseData);
 
@@ -51,16 +45,20 @@ internal class HomePageViewModels
 
                     for (int i = 0; i < manga.data.Count; i++)
                     {
-                        Manga.Add(new Manga { 
-                            id = manga.data[i].id, 
-                            type = manga.data[i].type 
+                        Manga.Add(new Manga
+                        {
+                            id = manga.data[i].id,
+                            type = manga.data[i].type,
+                            attributes = manga.data[i].attributes,
+                            poster = $"https://uploads.mangadex.org/covers/{manga.data[i].id}/{manga.data[i].relationships[2].attributes.fileName}",
+                            relationships = manga.data[i].relationships
                         });
-                        
+
                         System.Diagnostics.Debug.WriteLine(manga.data[i].attributes.title.en);
 
-                        System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].id);
-                        System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].type);
-                        System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].attributes.fileName);
+                        //System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].id);
+                        //System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].type);
+                        //System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].attributes.fileName);
                     }
                 }
                 else
@@ -74,17 +72,10 @@ internal class HomePageViewModels
             }
         }
     }
-}
 
-public class Person
-{
-    public string Name
+    public string SplitString(string value)
     {
-        get; set;
-    }
-    public int Age
-    {
-        get; set;
+        return "";
     }
 }
 
