@@ -69,6 +69,11 @@ internal class MangaJSONModels
 
     public class MangaRelationshipsAttributes
     {
+        public string name
+        {
+            get; set;
+        }
+
         public string fileName
         {
             get; set;
@@ -92,6 +97,11 @@ internal class Manga
     }
 
     public string type
+    {
+        get; set;
+    }
+
+    public string author
     {
         get; set;
     }

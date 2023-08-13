@@ -160,7 +160,7 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="8.5*" />
                                         <RowDefinition Height="2*" />
-                                        <RowDefinition Height="2*" />
+                                        <RowDefinition Height="1.5*" />
                                     </Grid.RowDefinitions>
 
                                     <StackPanel
@@ -188,13 +188,16 @@
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Text="{x:Bind attributes.title.en}"
+                                        ToolTipService.ToolTip="{x:Bind attributes.title.en}"
                                         ></TextBlock>
                                     <TextBlock 
                                         Grid.Row="2"
                                         TextWrapping="Wrap" 
                                         TextTrimming="WordEllipsis" 
+                                        MaxLines="2"
+                                        Text="{x:Bind author}"
+                                        ToolTipService.ToolTip="{x:Bind author}"
                                     >
-                                        Hinokage Sora, Takahashi Tsutsuji
                                     </TextBlock>
                                 </Grid>
                             </DataTemplate>
