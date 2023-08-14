@@ -1,15 +1,12 @@
 using System;
 using System.Linq;
+using Komorenga.Views;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 using Windows.UI;
 using WinRT.Interop;
-
-using Komorenga.Views;
-using System.Diagnostics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -37,7 +34,7 @@ public sealed partial class Shell : Window
             var titleBar = m_AppWindow.TitleBar;
             // Hide default title bar.
             titleBar.ExtendsContentIntoTitleBar = true;
-            
+
             titleBar.ButtonBackgroundColor = new Color() { R = 31, G = 31, B = 31 };
             //titleBar.ButtonHoverBackgroundColor = new Color() { R = 77, G = 77, B = 77 };
         }

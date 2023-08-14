@@ -1,20 +1,6 @@
 using System.Net.Http;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System;
-using System.IO;
-using System.Net.Http.Json;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using Komorenga.Models;
-using static Komorenga.Models.MangaJSONModels;
-using System.Collections.ObjectModel;
-using Komorenga.ViewModels;
-using System.Windows.Input;
-using System.Runtime.InteropServices.ObjectiveC;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -69,6 +55,7 @@ public sealed partial class HomePage : Page
 
         // bf0e6911-d03c-4b3c-8ee1-32e6220ba4a6
         // 6d48d4cb-41e6-452b-a0be-c159d10ac674.png
+
     }
 
     private void PopularNewTitleNextScroll(object sender, RoutedEventArgs e)

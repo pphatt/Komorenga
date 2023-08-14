@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System.Collections.Generic;
 using static Komorenga.Models.MangaJSONModels;
 
 namespace Komorenga.Models;
@@ -12,7 +6,10 @@ internal class MangaJSONModels
 {
     public class MangaJSON
     {
-        public string result { get; set; }
+        public string result
+        {
+            get; set;
+        }
         public List<Manga> data;
     }
 
@@ -20,12 +17,7 @@ internal class MangaJSONModels
     {
         public Language title
         {
-            get; set; 
-        }
-
-        public Language parsedTitle
-        {
-            get; set; 
+            get; set;
         }
 
         public List<Language> altTitles
@@ -53,12 +45,12 @@ internal class MangaJSONModels
     {
         public string id
         {
-            get; set; 
+            get; set;
         }
 
         public string type
         {
-            get; set; 
+            get; set;
         }
 
         public MangaRelationshipsAttributes attributes
@@ -75,14 +67,6 @@ internal class MangaJSONModels
         }
 
         public string fileName
-        {
-            get; set;
-        }
-    }
-
-    public class Language
-    {
-        public string en
         {
             get; set;
         }

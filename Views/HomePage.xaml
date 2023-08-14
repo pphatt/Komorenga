@@ -10,7 +10,8 @@
     
     xmlns:utils="using:Komorenga.Utils"
     xmlns:viewmodels="using:Komorenga.ViewModels"
-    xmlns:models ="using:Komorenga.Models"
+    xmlns:models="using:Komorenga.Models"
+    xmlns:converter="using:Komorenga.Utils"
     >
 
     <Page.DataContext>
@@ -18,7 +19,7 @@
     </Page.DataContext>
 
     <Page.Resources>
-        <utils:Utils x:Key="Utils" />
+        <converter:ParserTitle x:Key="ParserTitle" />
     </Page.Resources>
 
     <Grid>
@@ -93,15 +94,16 @@
 
         <ScrollViewer
             Grid.Row="2" VerticalAlignment="Top" 
-            VerticalScrollBarVisibility="Hidden"
+            VerticalScrollBarVisibility="Auto"
+            x:Name="LayoutScrollViewer"
         >
-            <!--POPULAR NEW TITLE GRID-->
             <Grid Margin="0 0 0 0" Grid.Row="2" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-
+                
+                <!--POPULAR NEW TITLE GRID-->
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -157,7 +159,7 @@
                             </AppBarButton>
                         </CommandBar>
                     </Grid>
-
+    
                     <ScrollViewer Grid.Row="1" VerticalAlignment="Top" 
                         Height="360" Width="Auto" 
                         HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
@@ -198,8 +200,8 @@
                                                 MaxLines="2"
                                                 FontSize="16"
                                                 FontWeight="SemiBold"
-                                                Text="{x:Bind attributes.title.en}"
-                                                ToolTipService.ToolTip="{x:Bind attributes.title.en}"
+                                                Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                                ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
                                             ></TextBlock>
                                             <TextBlock 
                                                 Grid.Row="2"
@@ -279,7 +281,7 @@
                               Height="360" Width="Auto" 
                               HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
                               x:Name="SeasonalScrollViewer"
-                        >
+                    >
                             <Grid Margin="0 0 0 0" x:Name="SeasonalGridPanel">
                                 <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga}">
                                     <GridView.ItemTemplate>
@@ -315,8 +317,8 @@
                                                     MaxLines="2"
                                                     FontSize="16"
                                                     FontWeight="SemiBold"
-                                                    Text="{x:Bind attributes.title.en}"
-                                                    ToolTipService.ToolTip="{x:Bind attributes.title.en}"
+                                                    Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                                    ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
                                                 ></TextBlock>
                                                 <TextBlock 
                                                     Grid.Row="2"
