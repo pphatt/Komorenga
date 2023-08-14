@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     
-    xmlns:utils="using:Komorenga.Utils"
     xmlns:viewmodels="using:Komorenga.ViewModels"
     xmlns:models="using:Komorenga.Models"
     xmlns:converter="using:Komorenga.Utils"
@@ -286,7 +285,7 @@
                                 <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga}">
                                     <GridView.ItemTemplate>
                                         <DataTemplate x:DataType="models:Manga">
-                                            <Grid Width="160" Height="346" Padding="5">
+                                            <Grid PointerPressed="" Width="160" Height="346" Padding="5" Tag="{x:Bind id}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="8.5*" />
                                                     <RowDefinition Height="2*" />
