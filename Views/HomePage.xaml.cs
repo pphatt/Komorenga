@@ -13,6 +13,8 @@ using Komorenga.Models;
 using static Komorenga.Models.MangaJSONModels;
 using System.Collections.ObjectModel;
 using Komorenga.ViewModels;
+using System.Windows.Input;
+using System.Runtime.InteropServices.ObjectiveC;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,25 +31,6 @@ public sealed partial class HomePage : Page
     public HomePage()
     {
         this.InitializeComponent();
-
-        if (scrollViewer != null)
-        {
-            // Attach the event handler to the ViewChanged event
-            scrollViewer.ViewChanged += OnScrollViewChanged;
-        }
-
-        // The event handler for the ViewChanged event
-        void OnScrollViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            // Get the vertical and horizontal scroll offsets
-            double verticalOffset = scrollViewer.VerticalOffset;
-            double horizontalOffset = scrollViewer.HorizontalOffset;
-
-            // Use the offsets as needed
-            // For example, you can print them out
-            System.Diagnostics.Debug.WriteLine("Vertical Offset: " + verticalOffset);
-            System.Diagnostics.Debug.WriteLine("Horizontal Offset: " + horizontalOffset);
-        }
 
         var url = "https://api.mangadex.org/manga?" +
             "includes[]=cover_art&" +
@@ -88,17 +71,23 @@ public sealed partial class HomePage : Page
         // 6d48d4cb-41e6-452b-a0be-c159d10ac674.png
     }
 
-    private void TestNext(object sender, RoutedEventArgs e)
+    private void PopularNewTitleNextScroll(object sender, RoutedEventArgs e)
     {
-        bool check = scrollViewer.ChangeView(scrollViewer.HorizontalOffset + 200, 0, 1.0f);
-
-        System.Diagnostics.Debug.WriteLine(check);
+        PopularNewTitleScrollViewer.ChangeView(PopularNewTitleScrollViewer.HorizontalOffset + 200, 0, 1.0f);
     }
 
-    private void TestBackward(object sender, RoutedEventArgs e)
+    private void PopularNewTitleBackwardScroll(object sender, RoutedEventArgs e)
     {
-        bool check = scrollViewer.ChangeView(scrollViewer.HorizontalOffset - 200, 0, 1.0f);
+        PopularNewTitleScrollViewer.ChangeView(PopularNewTitleScrollViewer.HorizontalOffset - 200, 0, 1.0f);
+    }
 
-        System.Diagnostics.Debug.WriteLine(check);
+    private void SeasonalNextScroll(object render, RoutedEventArgs e)
+    {
+        SeasonalScrollViewer.ChangeView(SeasonalScrollViewer.HorizontalOffset + 200, 0, 1.0f);
+    }
+
+    private void SeasonalBackwardScroll(object render, RoutedEventArgs e)
+    {
+        SeasonalScrollViewer.ChangeView(SeasonalScrollViewer.HorizontalOffset - 200, 0, 1.0f);
     }
 }

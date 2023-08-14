@@ -91,120 +91,250 @@
             </AutoSuggestBox>
         </Grid>
 
-        <Grid Margin="0 0 0 0" Grid.Row="2" VerticalAlignment="Top">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <ScrollViewer
+            Grid.Row="2" VerticalAlignment="Top" 
+            VerticalScrollBarVisibility="Hidden"
+        >
+            <!--POPULAR NEW TITLE GRID-->
+            <Grid Margin="0 0 0 0" Grid.Row="2" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <Button Grid.Column="0" BorderBrush="Transparent">
-                    <Grid VerticalAlignment="Center">
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock
-                                Grid.Column="0"
-                                Text="Popular new titles" FontWeight="Bold" FontSize="16" />
+                        <Button Grid.Column="0" BorderBrush="Transparent">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-                        <FontIcon VerticalAlignment="Center" Grid.Column="1"
-                                  Glyph="&#xE76C;" 
-                                  FontSize="14" Margin="8 2 0 0" />
-                    </Grid>
-                </Button>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Popular new titles" FontWeight="Bold" FontSize="16" />
 
-                <CommandBar Grid.Column="1"
+                                <FontIcon VerticalAlignment="Center" Grid.Column="1"
+                                    Glyph="&#xE76C;" 
+                                    FontSize="14" Margin="8 2 0 0" />
+                            </Grid>
+                        </Button>
+
+                        <CommandBar Grid.Column="1"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"  
                             DefaultLabelPosition="Right"
-                            >
-                    <AppBarButton Click="TestBackward" ToolTipService.ToolTip="">
-                        <AppBarButton.Icon>
-                            <FontIcon FontSize="14" Glyph="&#xE76B;" />
-                        </AppBarButton.Icon>
+                        >
+                            <AppBarButton Click="PopularNewTitleBackwardScroll" ToolTipService.ToolTip="">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontSize="14" Glyph="&#xE76B;" />
+                                </AppBarButton.Icon>
 
-                        <AppBarButton.KeyboardAccelerators>
-                            <KeyboardAccelerator Modifiers="Control" Key="R"/>
-                        </AppBarButton.KeyboardAccelerators>
-                    </AppBarButton>
+                                <AppBarButton.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="R"/>
+                                </AppBarButton.KeyboardAccelerators>
+                            </AppBarButton>
 
-                    <AppBarButton Click="TestNext" ToolTipService.ToolTip="">
-                        <AppBarButton.Icon>
-                            <FontIcon FontSize="14" Glyph="&#xE76C;" />
-                        </AppBarButton.Icon>
+                            <AppBarButton Click="PopularNewTitleNextScroll" ToolTipService.ToolTip="">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontSize="14" Glyph="&#xE76C;" />
+                                </AppBarButton.Icon>
 
-                        <AppBarButton.KeyboardAccelerators>
-                            <KeyboardAccelerator Modifiers="Control" Key="R"/>
-                        </AppBarButton.KeyboardAccelerators>
-                    </AppBarButton>
-                </CommandBar>
-            </Grid>
+                                <AppBarButton.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="R"/>
+                                </AppBarButton.KeyboardAccelerators>
+                            </AppBarButton>
+                        </CommandBar>
+                    </Grid>
 
-            <ScrollViewer Grid.Row="2" VerticalAlignment="Top" 
-                          Height="360" Width="Auto" 
-                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
-                          x:Name="scrollViewer"
-                          >
-                <Grid Margin="0 0 0 0" x:Name="GridPanel">
-                    <GridView ItemsSource="{x:Bind ViewModel.Manga}">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Manga">
-                                <Grid Width="160" Height="346" Padding="5">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="8.5*" />
-                                        <RowDefinition Height="2*" />
-                                        <RowDefinition Height="1.5*" />
-                                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="1" VerticalAlignment="Top" 
+                        Height="360" Width="Auto" 
+                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                        x:Name="PopularNewTitleScrollViewer"
+                    >
+                        <Grid Margin="0 0 0 0" x:Name="PopularNewTitleGridPanel">
+                            <GridView ItemsSource="{x:Bind ViewModel.Manga}">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Manga">
+                                        <Grid Width="160" Height="346" Padding="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="8.5*" />
+                                                <RowDefinition Height="2*" />
+                                                <RowDefinition Height="1.5*" />
+                                            </Grid.RowDefinitions>
 
-                                    <StackPanel
-                                            Grid.Row="0"
-                                            CornerRadius="8"
-                                            BorderThickness="1"
-                                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                        >
-                                        <!--Height can be 210??-->
-                                        <Image Width="auto" Height="220"
-                                               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
-                                            <Image.Source>
-                                                <BitmapImage UriSource="{x:Bind poster}" />
-                                            </Image.Source>
-                                        </Image>
-                                    </StackPanel>
+                                            <StackPanel
+                                                Grid.Row="0"
+                                                CornerRadius="8"
+                                                BorderThickness="1"
+                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            >
+                                                <!--Height can be 210??-->
+                                                <Image Width="auto" Height="220"
+                                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
+                                                    <Image.Source>
+                                                        <BitmapImage UriSource="{x:Bind poster}" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </StackPanel>
 
-                                    <TextBlock 
-                                        Grid.Row="1" 
-                                        TextWrapping="Wrap" 
-                                        TextTrimming="WordEllipsis"
-                                        MaxLines="2"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Text="{x:Bind attributes.title.en}"
-                                        ToolTipService.ToolTip="{x:Bind attributes.title.en}"
-                                        ></TextBlock>
-                                    <TextBlock 
-                                        Grid.Row="2"
-                                        TextWrapping="Wrap" 
-                                        TextTrimming="WordEllipsis" 
-                                        MaxLines="2"
-                                        Text="{x:Bind author}"
-                                        ToolTipService.ToolTip="{x:Bind author}"
-                                    >
-                                    </TextBlock>
-                                </Grid>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                                            <TextBlock 
+                                                Grid.Row="1" 
+                                                TextWrapping="Wrap" 
+                                                TextTrimming="WordEllipsis"
+                                                MaxLines="2"
+                                                FontSize="16"
+                                                FontWeight="SemiBold"
+                                                Text="{x:Bind attributes.title.en}"
+                                                ToolTipService.ToolTip="{x:Bind attributes.title.en}"
+                                            ></TextBlock>
+                                            <TextBlock 
+                                                Grid.Row="2"
+                                                TextWrapping="Wrap" 
+                                                TextTrimming="WordEllipsis" 
+                                                MaxLines="2"
+                                                Text="{x:Bind author}"
+                                                ToolTipService.ToolTip="{x:Bind author}"
+                                            ></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
-            </ScrollViewer>
-        </Grid>
+
+                <!--SEASONAL MANGA GRID-->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" BorderBrush="Transparent">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Seasonal Manga" FontWeight="Bold" FontSize="16" />
+
+                                <FontIcon VerticalAlignment="Center" Grid.Column="1"
+                                Glyph="&#xE76C;" 
+                                FontSize="14" Margin="8 2 0 0" />
+                            </Grid>
+                        </Button>
+
+                        <CommandBar 
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"  
+                            DefaultLabelPosition="Right"
+                        >
+                            <AppBarButton Click="SeasonalBackwardScroll" ToolTipService.ToolTip="">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontSize="14" Glyph="&#xE76B;" />
+                                </AppBarButton.Icon>
+
+                                <AppBarButton.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="R"/>
+                                </AppBarButton.KeyboardAccelerators>
+                            </AppBarButton>
+
+                            <AppBarButton Click="SeasonalNextScroll" ToolTipService.ToolTip="">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontSize="14" Glyph="&#xE76C;" />
+                                </AppBarButton.Icon>
+
+                                <AppBarButton.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="R"/>
+                                </AppBarButton.KeyboardAccelerators>
+                            </AppBarButton>
+                        </CommandBar>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1" VerticalAlignment="Top" 
+                              Height="360" Width="Auto" 
+                              HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                              x:Name="SeasonalScrollViewer"
+                        >
+                            <Grid Margin="0 0 0 0" x:Name="SeasonalGridPanel">
+                                <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga}">
+                                    <GridView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:Manga">
+                                            <Grid Width="160" Height="346" Padding="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="8.5*" />
+                                                    <RowDefinition Height="2*" />
+                                                    <RowDefinition Height="1.5*" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    CornerRadius="8"
+                                                    BorderThickness="1"
+                                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                >
+                                                    <!--Height can be 210??-->
+                                                    <Image Width="auto" Height="220"
+                                                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
+                                                        <Image.Source>
+                                                            <BitmapImage UriSource="{x:Bind poster}" />
+                                                        </Image.Source>
+                                                    </Image>
+                                                </StackPanel>
+
+                                                <TextBlock 
+                                                    Grid.Row="1" 
+                                                    TextWrapping="Wrap" 
+                                                    TextTrimming="WordEllipsis"
+                                                    MaxLines="2"
+                                                    FontSize="16"
+                                                    FontWeight="SemiBold"
+                                                    Text="{x:Bind attributes.title.en}"
+                                                    ToolTipService.ToolTip="{x:Bind attributes.title.en}"
+                                                ></TextBlock>
+                                                <TextBlock 
+                                                    Grid.Row="2"
+                                                    TextWrapping="Wrap" 
+                                                    TextTrimming="WordEllipsis" 
+                                                    MaxLines="2"
+                                                    Text="{x:Bind author}"
+                                                    ToolTipService.ToolTip="{x:Bind author}"
+                                                >
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GridView.ItemTemplate>
+                                </GridView>
+                            </Grid>
+                        </ScrollViewer>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>
