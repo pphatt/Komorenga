@@ -56,11 +56,6 @@ internal class HomePageViewModels
                             attributes = manga.data[i].attributes,
                             relationships = manga.data[i].relationships
                         });
-
-                        //System.Diagnostics.Debug.WriteLine(manga.data[i].attributes.title.en);
-                        //System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].id);
-                        //System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].type);
-                        //System.Diagnostics.Debug.WriteLine(manga.data[i].relationships[2].attributes.fileName);
                     }
                 }
                 else
