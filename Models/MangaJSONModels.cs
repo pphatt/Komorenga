@@ -2,7 +2,7 @@
 using static Komorenga.Models.MangaJSONModels;
 
 namespace Komorenga.Models;
-internal class MangaJSONModels
+public class MangaJSONModels
 {
     public class MangaJSON
     {
@@ -10,7 +10,18 @@ internal class MangaJSONModels
         {
             get; set;
         }
+
         public List<Manga> data;
+    }
+
+    public class SingleMangaJSON
+    {
+        public string result
+        {
+            get; set;
+        }
+
+        public Manga data;
     }
 
     public class MangaAttributes
@@ -73,7 +84,7 @@ internal class MangaJSONModels
     }
 }
 
-internal class Manga
+public class Manga
 {
     public string id
     {

@@ -5,11 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using Komorenga.Models;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml;
 using Newtonsoft.Json;
 using static Komorenga.Models.MangaJSONModels;
-using Microsoft.UI.Xaml.Input;
 
 namespace Komorenga.ViewModels;
 
@@ -22,6 +19,44 @@ internal class HomePageViewModels
     {
         DateTime utcTime = DateTime.UtcNow.AddMonths(-1).AddDays(1);
         var encodedUtcTime = HttpUtility.UrlEncode(utcTime.ToString("yyyy-MM-ddTHH:mm:ss")).ToUpper();
+
+        //var url = "https://api.mangadex.org/manga?" +
+        //    "includes[]=cover_art&" +
+        //    "includes[]=artist&" +
+        //    "includes[]=author&" +
+        //    "order[followedCount]=desc&" +
+        //    "contentRating[]=safe&" +
+        //    "contentRating[]=suggestive&" +
+        //    "hasAvailableChapters=true&" +
+        //    "createdAtSince=2023-07-10T03%3A06%3A02";
+
+        // https://api.mangadex.org/manga?
+        // includes[]=cover_art&
+        // includes[]=artist&
+        // includes[]=author&
+        // order[followedCount]=desc&
+        // contentRating[]=safe&
+        // contentRating[]=suggestive&
+        // hasAvailableChapters=true&
+        // createdAtSince=2023-07-14T09%3A25%3A06
+
+        // https://api.mangadex.org/manga?
+        // includes[]=cover_art&
+        // includes[]=artist&
+        // includes[]=author&
+        // order[followedCount]=desc&
+        // contentRating[]=safe&
+        // contentRating[]=suggestive&
+        // hasAvailableChapters=true&
+        // createdAtSince=2023-07-14T12%3A14%3A50
+
+        // 2023-07-14T12%3A18%3A01
+        // 2023-07-14T12%3A19%3A04
+
+
+
+        // bf0e6911-d03c-4b3c-8ee1-32e6220ba4a6
+        // 6d48d4cb-41e6-452b-a0be-c159d10ac674.png
 
         _ = FetchData($"https://api.mangadex.org/manga?includes[]=cover_art&includes[]=artist&includes[]=author&order[followedCount]=desc&contentRating[]=safe&contentRating[]=suggestive&hasAvailableChapters=true&createdAtSince={encodedUtcTime}", Manga);
 

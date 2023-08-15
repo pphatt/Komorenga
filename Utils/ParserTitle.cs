@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml;
 using Komorenga.Models;
+using Microsoft.UI.Xaml.Data;
 
 namespace Komorenga.Utils
 {
@@ -36,7 +31,6 @@ namespace Komorenga.Utils
 
             if (currentAttributeTitle.jaRo != null)
             {
-                System.Diagnostics.Debug.WriteLine("ja-ro: " + currentAttributeTitle.jaRo);
                 return currentAttributeTitle.jaRo;
             }
 

@@ -15,7 +15,7 @@
     <None Remove="ViewModels\SettingsViewModel.xaml" />
     <None Remove="Views\HomePage.xaml" />
     <None Remove="Views\Library.xaml" />
-    <None Remove="Views\Reading.xaml" />
+    <None Remove="Views\ReadingPage.xaml" />
     <None Remove="Views\Setting.xaml" />
   </ItemGroup>
 
@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230602002" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -45,7 +46,7 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\Reading.xaml">
+    <Page Update="Views\ReadingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

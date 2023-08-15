@@ -1,15 +1,12 @@
 using System;
 using System.Linq;
 using Komorenga.Views;
-using Microsoft.UI;
-using Microsoft.UI.Windowing;
+using Microsoft.UI;           // Needed for WindowId.
+using Microsoft.UI.Windowing; // Needed for AppWindow.
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI;
-using WinRT.Interop;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using WinRT.Interop;          // Needed for XAML/HWND interop.
 
 namespace Komorenga;
 /// <summary>

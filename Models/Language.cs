@@ -2,7 +2,7 @@
 
 namespace Komorenga.Models
 {
-    class Language
+    public class Language
     {
         public string en
         {
