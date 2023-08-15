@@ -19,8 +19,12 @@ public sealed partial class Shell : Window
 {
     private AppWindow m_AppWindow;
 
+    public static Shell CurrentShell;
+
     public Shell()
     {
+        CurrentShell = this;
+
         this.InitializeComponent();
 
         Title = "Komorenga";
@@ -89,5 +93,10 @@ public sealed partial class Shell : Window
     private void NavigationViewControl_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
     {
         if (ContentFrame.CanGoBack) ContentFrame.GoBack();
+    }
+
+    public void SetContentFrame(Type type, object value = null)
+    {
+        ContentFrame.Navigate(type, value);
     }
 }

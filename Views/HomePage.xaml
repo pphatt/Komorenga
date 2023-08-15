@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    NavigationCacheMode="Enabled"
     
     xmlns:viewmodels="using:Komorenga.ViewModels"
     xmlns:models="using:Komorenga.Models"
@@ -168,7 +169,7 @@
                             <GridView ItemsSource="{x:Bind ViewModel.Manga}">
                                 <GridView.ItemTemplate>
                                     <DataTemplate x:DataType="models:Manga">
-                                        <Grid Width="160" Height="346" Padding="5">
+                                        <Grid PointerPressed="Grid_PointerPressed" Width="160" Height="346" Padding="5">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="8.5*" />
                                                 <RowDefinition Height="2*" />
@@ -184,7 +185,7 @@
                                                 HorizontalAlignment="Center" VerticalAlignment="Center"
                                             >
                                                 <!--Height can be 210??-->
-                                                <Image Width="auto" Height="220"
+                                                <Image Width="160" Height="220"
                                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
                                                     <Image.Source>
                                                         <BitmapImage UriSource="{x:Bind poster}" />
@@ -285,7 +286,7 @@
                                 <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga}">
                                     <GridView.ItemTemplate>
                                         <DataTemplate x:DataType="models:Manga">
-                                            <Grid PointerPressed="" Width="160" Height="346" Padding="5" Tag="{x:Bind id}">
+                                            <Grid Width="160" Height="346" Padding="5" Tag="{x:Bind id}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="8.5*" />
                                                     <RowDefinition Height="2*" />

@@ -15,6 +15,7 @@
     <None Remove="ViewModels\SettingsViewModel.xaml" />
     <None Remove="Views\HomePage.xaml" />
     <None Remove="Views\Library.xaml" />
+    <None Remove="Views\Reading.xaml" />
     <None Remove="Views\Setting.xaml" />
   </ItemGroup>
 
@@ -42,6 +43,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Reading.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Library.xaml">

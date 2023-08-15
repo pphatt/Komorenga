@@ -48,12 +48,19 @@
             
             OpenPaneLength="200"
             
+            IsBackEnabled="True"
+            
             ItemInvoked="NavigationViewControl_ItemInvoked"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             BackRequested="NavigationViewControl_BackRequested" 
             >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Komorenga.Views.HomePage" />
+                <NavigationViewItem Content="Reading" Tag="Komorenga.Views.Reading">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE736;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Icon="SolidStar" Content="Library" Tag="Komorenga.Views.Library" />
             </NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" Padding="20,10,0,0"/>

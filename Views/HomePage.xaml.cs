@@ -1,7 +1,9 @@
 using System.Net.Http;
+using Komorenga.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -80,11 +82,14 @@ public sealed partial class HomePage : Page
 
     private void Grid_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
+        if (sender is Grid grid && grid.DataContext is Manga manga)
+        {
+            //System.Diagnostics.Debug.WriteLine(manga.id);
+            //System.Diagnostics.Debug.WriteLine(manga.attributes.title.en);
+            //System.Diagnostics.Debug.WriteLine("");
+            //App.CurrentShell.SetContentFrame(typeof(Reading));
 
-    }
-
-    private void Grid_PointerPressed_1(object sender, PointerRoutedEventArgs e)
-    {
-
+            Shell.CurrentShell.SetContentFrame(typeof(Reading), "Hello world");
+        }
     }
 }
