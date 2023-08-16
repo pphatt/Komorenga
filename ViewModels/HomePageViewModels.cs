@@ -136,7 +136,7 @@ internal class HomePageViewModels
                     getMangaArtist += manga.relationships[j].attributes.name;
                     break;
                 case "cover_art":
-                    getMangaPoster = manga.relationships[j].attributes.fileName;
+                    getMangaPoster = manga.relationships[j].attributes.fileName + ".512.jpg";
                     break;
                 default:
                     break;

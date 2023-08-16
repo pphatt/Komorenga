@@ -161,7 +161,7 @@
                     </Grid>
     
                     <ScrollViewer Grid.Row="1" VerticalAlignment="Top" 
-                        Height="360" Width="Auto" 
+                        Height="380" Width="Auto" 
                         HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
                         x:Name="PopularNewTitleScrollViewer"
                     >
@@ -169,7 +169,8 @@
                             <GridView ItemsSource="{x:Bind ViewModel.Manga}">
                                 <GridView.ItemTemplate>
                                     <DataTemplate x:DataType="models:Manga">
-                                        <Grid PointerPressed="Grid_PointerPressed" Width="160" Height="346" Padding="5">
+                                        <Grid PointerPressed="Grid_PointerPressed" 
+                                              Width="180" Height="366" Padding="5">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="8.5*" />
                                                 <RowDefinition Height="2*" />
@@ -184,9 +185,8 @@
                                                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                                 HorizontalAlignment="Center" VerticalAlignment="Center"
                                             >
-                                                <!--Height can be 210??-->
-                                                <Image Width="160" Height="220"
-                                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
+                                                <Image Width="auto" Height="250"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
                                                     <Image.Source>
                                                         <BitmapImage UriSource="{x:Bind poster}" />
                                                     </Image.Source>
@@ -277,63 +277,64 @@
                         </CommandBar>
                     </Grid>
 
-                    <ScrollViewer Grid.Row="1" VerticalAlignment="Top" 
-                              Height="360" Width="Auto" 
-                              HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
-                              x:Name="SeasonalScrollViewer"
+                    <ScrollViewer 
+                        Grid.Row="1" VerticalAlignment="Top" 
+                        Height="380" Width="Auto" 
+                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                        x:Name="SeasonalScrollViewer"
                     >
-                            <Grid Margin="0 0 0 0" x:Name="SeasonalGridPanel">
-                                <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga}">
-                                    <GridView.ItemTemplate>
-                                        <DataTemplate x:DataType="models:Manga">
-                                            <Grid Width="160" Height="346" Padding="5" Tag="{x:Bind id}">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="8.5*" />
-                                                    <RowDefinition Height="2*" />
-                                                    <RowDefinition Height="1.5*" />
-                                                </Grid.RowDefinitions>
+                        <Grid Margin="0 0 0 0" x:Name="SeasonalGridPanel">
+                            <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga}">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Manga">
+                                        <Grid Width="180" Height="366" Padding="5" Tag="{x:Bind id}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="8.5*" />
+                                                <RowDefinition Height="2*" />
+                                                <RowDefinition Height="1.5*" />
+                                            </Grid.RowDefinitions>
 
-                                                <StackPanel
-                                                    Grid.Row="0"
-                                                    CornerRadius="8"
-                                                    BorderThickness="1"
-                                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                >
-                                                    <!--Height can be 210??-->
-                                                    <Image Width="auto" Height="220"
-                                                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
-                                                        <Image.Source>
-                                                            <BitmapImage UriSource="{x:Bind poster}" />
-                                                        </Image.Source>
-                                                    </Image>
-                                                </StackPanel>
+                                            <StackPanel
+                                                Grid.Row="0"
+                                                CornerRadius="8"
+                                                BorderThickness="1"
+                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            >
+                                                <!--Height can be 210??-->
+                                                <Image Width="auto" Height="250"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
+                                                    <Image.Source>
+                                                        <BitmapImage UriSource="{x:Bind poster}" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </StackPanel>
 
-                                                <TextBlock 
-                                                    Grid.Row="1" 
-                                                    TextWrapping="Wrap" 
-                                                    TextTrimming="WordEllipsis"
-                                                    MaxLines="2"
-                                                    FontSize="16"
-                                                    FontWeight="SemiBold"
-                                                    Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
-                                                    ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
-                                                ></TextBlock>
-                                                <TextBlock 
-                                                    Grid.Row="2"
-                                                    TextWrapping="Wrap" 
-                                                    TextTrimming="WordEllipsis" 
-                                                    MaxLines="2"
-                                                    Text="{x:Bind author}"
-                                                    ToolTipService.ToolTip="{x:Bind author}"
-                                                >
-                                                </TextBlock>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </GridView.ItemTemplate>
-                                </GridView>
-                            </Grid>
+                                            <TextBlock 
+                                                Grid.Row="1" 
+                                                TextWrapping="Wrap" 
+                                                TextTrimming="WordEllipsis"
+                                                MaxLines="2"
+                                                FontSize="16"
+                                                FontWeight="SemiBold"
+                                                Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                                ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                            ></TextBlock>
+                                            <TextBlock 
+                                                Grid.Row="2"
+                                                TextWrapping="Wrap" 
+                                                TextTrimming="WordEllipsis" 
+                                                MaxLines="2"
+                                                Text="{x:Bind author}"
+                                                ToolTipService.ToolTip="{x:Bind author}"
+                                            >
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </Grid>
                         </ScrollViewer>
                 </Grid>
             </Grid>
