@@ -9,6 +9,9 @@
     mc:Ignorable="d">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock TextWrapping="WrapWholeWords" Text="Column 1 sizes to its content.Column 1 sizes to its content.Column 1 sizes to its content.Column 1 sizes to its content.Column 1 sizes to its content." FontSize="24"/>
     </Grid>
 </Page>

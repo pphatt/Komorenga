@@ -22,7 +22,7 @@
         <converter:ParserTitle x:Key="ParserTitle" />
     </Page.Resources>
 
-    <Grid>
+    <Grid Padding="20 10 0 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

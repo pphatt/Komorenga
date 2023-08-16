@@ -19,63 +19,89 @@
 
     <Page.Resources>
         <converter:ParserTitle x:Key="ParserTitle" />
-    </Page.Resources>
 
+        <ItemsPanelTemplate x:Key="MyItemsPanelTemplate">
+            <ItemsStackPanel />
+        </ItemsPanelTemplate>
+    </Page.Resources>
+    
     <ScrollViewer 
-        VerticalAlignment="Top" 
-        Height="360" Width="Auto" 
-        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+        VerticalAlignment="Stretch" 
+        HorizontalContentAlignment="Stretch"
+        HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
         x:Name="PopularNewTitleScrollViewer"
+        Padding="10 0 0 0"
     >
-        <Grid Margin="0 0 0 0" x:Name="PopularNewTitleGridPanel">
-            <GridView ItemsSource="{x:Bind ViewModel.Manga, Mode=OneWay}">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Manga">
-                        <Grid Width="160" Height="346" Padding="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="8.5*" />
-                                <RowDefinition Height="2*" />
-                                <RowDefinition Height="1.5*" />
-                            </Grid.RowDefinitions>
+        <GridView ItemsSource="{x:Bind ViewModel.Manga, Mode=OneWay}" 
+                  HorizontalContentAlignment="Stretch"
+                  ItemsPanel="{StaticResource MyItemsPanelTemplate}"
+                  VerticalContentAlignment="Stretch"
+                  >
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </GridView.ItemContainerStyle>
+            
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:Manga">
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></StackPanel>
+
+                        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
                             <StackPanel
-                                Grid.Row="0"
+                                Grid.Column="0"
                                 CornerRadius="8"
                                 BorderThickness="1"
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center"
                             >
-                                <Image Width="160" Height="220"
-                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
+                                 <!--Height can be 210??--> 
+                                <Image Width="250" Height="350"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
                                     <Image.Source>
                                         <BitmapImage UriSource="{x:Bind poster}" />
                                     </Image.Source>
                                 </Image>
                             </StackPanel>
 
-                            <TextBlock 
-                                Grid.Row="1" 
-                                TextWrapping="Wrap" 
-                                TextTrimming="WordEllipsis"
-                                MaxLines="2"
-                                FontSize="16"
-                                FontWeight="SemiBold"
-                                Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
-                                ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
-                            ></TextBlock>
-                            <TextBlock 
-                                Grid.Row="2"
-                                TextWrapping="Wrap" 
-                                TextTrimming="WordEllipsis" 
-                                MaxLines="2"
-                                Text="{x:Bind author}"
-                                ToolTipService.ToolTip="{x:Bind author}"
-                            ></TextBlock>
+                            <Grid Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                    
+                                <TextBlock 
+                                    Grid.Row="0" 
+                                    HorizontalAlignment="Left"
+                                    TextWrapping="WrapWholeWords"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                    ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                ></TextBlock>
+                                <TextBlock 
+                                    Grid.Row="1"
+                                    TextWrapping="WrapWholeWords"
+                                    Text="{x:Bind author}"
+                                    ToolTipService.ToolTip="{x:Bind author}"
+                                ></TextBlock>
+                            </Grid>
                         </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView> 
     </ScrollViewer>
 </Page>
