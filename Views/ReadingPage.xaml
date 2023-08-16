@@ -24,7 +24,7 @@
             <ItemsStackPanel />
         </ItemsPanelTemplate>
     </Page.Resources>
-    
+
     <ScrollViewer 
         VerticalAlignment="Stretch" 
         HorizontalContentAlignment="Stretch"
@@ -35,17 +35,16 @@
         <GridView ItemsSource="{x:Bind ViewModel.Manga, Mode=OneWay}" 
                   HorizontalContentAlignment="Stretch"
                   ItemsPanel="{StaticResource MyItemsPanelTemplate}"
-                  VerticalContentAlignment="Stretch"
-                  >
+                  VerticalContentAlignment="Stretch">
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </GridView.ItemContainerStyle>
-            
+
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Manga">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="20">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="150" />
                             <RowDefinition Height="*" />
@@ -54,7 +53,7 @@
 
                         <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></StackPanel>
 
-                        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20 0 0 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -66,9 +65,10 @@
                                 BorderThickness="1"
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"
                             >
                                  <!--Height can be 210??--> 
-                                <Image Width="250" Height="350"
+                                <Image Width="300" Height="420"
                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill">
                                     <Image.Source>
                                         <BitmapImage UriSource="{x:Bind poster}" />
@@ -76,29 +76,37 @@
                                 </Image>
                             </StackPanel>
 
-                            <Grid Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                            <Grid Grid.Column="1" 
+                                  VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+                                  Margin="50 0 0 0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                    
+
                                 <TextBlock 
                                     Grid.Row="0" 
                                     HorizontalAlignment="Left"
                                     TextWrapping="WrapWholeWords"
-                                    FontSize="16"
-                                    FontWeight="SemiBold"
+                                    TextTrimming="WordEllipsis"
+                                    MaxLines="2"
+                                    FontSize="50"
+                                    FontWeight="Bold"
                                     Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
                                     ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
                                 ></TextBlock>
                                 <TextBlock 
                                     Grid.Row="1"
                                     TextWrapping="WrapWholeWords"
+                                    FontSize="30"
+                                    FontWeight="SemiBold"
                                     Text="{x:Bind author}"
                                     ToolTipService.ToolTip="{x:Bind author}"
                                 ></TextBlock>
                             </Grid>
                         </Grid>
+
+                        <Grid Grid.Row="2"></Grid>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
