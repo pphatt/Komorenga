@@ -19,8 +19,6 @@ internal class ReadingPageViewModels
     {
         WeakReferenceMessenger.Default.Register<string>(this, (r, m) =>
         {
-            System.Diagnostics.Debug.WriteLine("ID1: " + m);
-
             _ = FetchData($"https://api.mangadex.org/manga/{m}?includes[]=artist&includes[]=author&includes[]=cover_art", Manga);
         });
     }
@@ -31,18 +29,19 @@ internal class ReadingPageViewModels
         {
             try
             {
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "MyApp");
+
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
                     string responseData = await response.Content.ReadAsStringAsync();
 
-                    System.Diagnostics.Debug.WriteLine("Response data: ");
-                    System.Diagnostics.Debug.WriteLine(responseData);
-
                     SingleMangaJSON manga = JsonConvert.DeserializeObject<SingleMangaJSON>(responseData);
 
                     List<string> relationship = GetCurrentMangaRelationship(manga.data);
+
+                    System.Diagnostics.Debug.WriteLine(manga.data.attributes.altTitles);
 
                     mangas.Add(new Manga
                     {

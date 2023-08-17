@@ -36,6 +36,11 @@ public class MangaJSONModels
             get; set;
         }
 
+        public Language description
+        {
+            get; set;
+        }
+
         public string status
         {
             get; set;

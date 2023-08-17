@@ -19,12 +19,13 @@
 
     <Page.Resources>
         <converter:ParserTitle x:Key="ParserTitle" />
+        <converter:ParserAltTitles x:Key="ParserAltTitles" />
 
         <ItemsPanelTemplate x:Key="MyItemsPanelTemplate">
             <ItemsStackPanel />
         </ItemsPanelTemplate>
     </Page.Resources>
-
+    
     <GridView ItemsSource="{x:Bind ViewModel.Manga, Mode=OneWay}" 
                 HorizontalContentAlignment="Stretch"
                 ItemsPanel="{StaticResource MyItemsPanelTemplate}"
@@ -54,17 +55,20 @@
                             <RowDefinition Height="150" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Grid.Background>
+                        <!--<Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                 <GradientStop Color="Transparent" Offset="0"/>
                                 <GradientStop Color="#272727" Offset="1"/>
                             </LinearGradientBrush>
-                        </Grid.Background>
+                        </Grid.Background>-->
 
                         <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></StackPanel>
 
+                        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></StackPanel>
+                        
                         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20 0 0 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -93,6 +97,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
                                 <TextBlock 
@@ -100,16 +105,28 @@
                                     HorizontalAlignment="Left"
                                     TextWrapping="WrapWholeWords"
                                     TextTrimming="WordEllipsis"
-                                    MaxLines="2"
+                                    MaxLines="4"
                                     FontSize="50"
                                     FontWeight="Bold"
                                     Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
                                     ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
                                 ></TextBlock>
                                 <TextBlock 
-                                    Grid.Row="1"
+                                    Grid.Row="1" 
+                                    HorizontalAlignment="Left"
                                     TextWrapping="WrapWholeWords"
+                                    TextTrimming="WordEllipsis"
+                                    MaxLines="3"
                                     FontSize="30"
+                                    FontWeight="SemiBold"
+                                    Text="{x:Bind attributes.altTitles, Converter={StaticResource ParserAltTitles}}"
+                                    ToolTipService.ToolTip="{x:Bind attributes.altTitles, Converter={StaticResource ParserAltTitles}}"
+                                    Margin="0 5 0 15"
+                                ></TextBlock>
+                                <TextBlock 
+                                    Grid.Row="2"
+                                    TextWrapping="WrapWholeWords"
+                                    FontSize="25"
                                     FontWeight="SemiBold"
                                     Text="{x:Bind author}"
                                     ToolTipService.ToolTip="{x:Bind author}"
@@ -117,7 +134,9 @@
                             </Grid>
                         </Grid>
 
-                        <Grid Grid.Row="2"></Grid>
+                        <!--<Grid Grid.Row="2">
+                            <Expander ExpandDirection="Down" VerticalAlignment="Top" Content="{x:Bind attributes.description.en}" />
+                        </Grid>-->
                     </Grid>
                 </ScrollViewer>
             </DataTemplate>

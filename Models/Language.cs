@@ -14,5 +14,10 @@ namespace Komorenga.Models
         {
             get; set;
         }
+
+        public string ja
+        {
+            get; set;
+        }
     }
 }
