@@ -55,6 +55,11 @@ public class MangaJSONModels
         {
             get; set;
         }
+
+        public List<MangaTag> tags
+        {
+            get; set;
+        }
     }
 
     public class MangaRelationships
@@ -117,6 +122,32 @@ public class Manga
     }
 
     public List<MangaRelationships> relationships
+    {
+        get; set;
+    }
+}
+
+public class MangaTag
+{
+    public string id
+    {
+        get; set;
+    }
+
+    public string type
+    {
+        get; set;
+    }
+
+    public MangaTagAttributes attributes
+    {
+        get; set;
+    }
+}
+
+public class MangaTagAttributes
+{
+    public Language name
     {
         get; set;
     }

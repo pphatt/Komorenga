@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using Komorenga.Models;
-using Komorenga.Views;
 using Newtonsoft.Json;
 using static Komorenga.Models.MangaJSONModels;
 
@@ -29,7 +29,7 @@ internal class ReadingPageViewModels
         {
             try
             {
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "MyApp");
+                httpClient.DefaultRequestHeaders.Add("User-Agent", $"Komorenga/{Environment.Version.ToString()} ({Environment.OSVersion.ToString()})");
 
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
@@ -41,14 +41,12 @@ internal class ReadingPageViewModels
 
                     List<string> relationship = GetCurrentMangaRelationship(manga.data);
 
-                    System.Diagnostics.Debug.WriteLine(manga.data.attributes.altTitles);
-
                     mangas.Add(new Manga
                     {
                         id = manga.data.id,
                         type = manga.data.type,
                         author = relationship[0],
-                        poster = $"https://uploads.mangadex.org/covers/{manga.data.id}/{relationship[2]}",
+                        poster = $"https://uploads.mangadex.org/covers/{manga.data.id}/{relationship[1]}",
                         attributes = manga.data.attributes,
                         relationships = manga.data.relationships
                     });
@@ -67,45 +65,30 @@ internal class ReadingPageViewModels
 
     private List<string> GetCurrentMangaRelationship(Manga manga)
     {
-        List<string> relationships = new List<string>();
+        List<string> getMangaAuthorAndArtist = new();
 
-        var getMangaAuthor = "";
-        var getMangaArtist = "";
-        var getMangaPoster = "";
+        string getMangaPoster = "";
 
         for (var j = 0; j < manga.relationships.Count; j++)
         {
             switch (manga.relationships[j].type)
             {
                 case "author":
-                    if (getMangaAuthor.Length > 0)
-                    {
-                        getMangaAuthor += ", ";
-                    }
-
-                    getMangaAuthor += manga.relationships[j].attributes.name;
-
-                    break;
                 case "artist":
-                    if (getMangaArtist.Length > 0)
+                    if (!getMangaAuthorAndArtist.Contains(manga.relationships[j].attributes.name))
                     {
-                        getMangaArtist += ", ";
+                        getMangaAuthorAndArtist.Add(manga.relationships[j].attributes.name);
                     }
 
-                    getMangaArtist += manga.relationships[j].attributes.name;
                     break;
                 case "cover_art":
-                    getMangaPoster = manga.relationships[j].attributes.fileName;
+                    getMangaPoster += manga.relationships[j].attributes.fileName;
                     break;
                 default:
                     break;
             }
         }
 
-        relationships.Add(getMangaAuthor);
-        relationships.Add(getMangaArtist);
-        relationships.Add(getMangaPoster);
-
-        return relationships;
+        return new List<string> { String.Join(", ", getMangaAuthorAndArtist.ToArray()), getMangaPoster };
     }
 }

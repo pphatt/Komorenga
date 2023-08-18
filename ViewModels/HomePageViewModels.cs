@@ -8,9 +8,6 @@ using Komorenga.Models;
 using Newtonsoft.Json;
 using static Komorenga.Models.MangaJSONModels;
 
-using System.Net.Http.Headers;
-using System.Reflection;
-
 namespace Komorenga.ViewModels;
 
 internal class HomePageViewModels
@@ -73,7 +70,7 @@ internal class HomePageViewModels
         {
             try
             {
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
+                httpClient.DefaultRequestHeaders.Add("User-Agent", $"Komorenga/{Environment.Version.ToString()} ({Environment.OSVersion.ToString()})");
 
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
