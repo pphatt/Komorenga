@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using Komorenga.Models;
 using Newtonsoft.Json;
+using Windows.Devices.Sensors;
 using static Komorenga.Models.MangaJSONModels;
 
 namespace Komorenga.ViewModels;
@@ -19,11 +20,11 @@ internal class ReadingPageViewModels
     {
         WeakReferenceMessenger.Default.Register<string>(this, (r, m) =>
         {
-            _ = FetchData($"https://api.mangadex.org/manga/{m}?includes[]=artist&includes[]=author&includes[]=cover_art", Manga);
+            _ = FetchData($"https://api.mangadex.org/manga/{m}?includes[]=artist&includes[]=author&includes[]=cover_art");
         });
     }
 
-    private async Task FetchData(string url, ObservableCollection<Manga> mangas)
+    private async Task FetchData(string url)
     {
         using (HttpClient httpClient = new HttpClient())
         {
@@ -41,15 +42,27 @@ internal class ReadingPageViewModels
 
                     List<string> relationship = GetCurrentMangaRelationship(manga.data);
 
-                    mangas.Add(new Manga
+                    HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=96&translatedLanguage[]=en&includes[]=scanlation_group&includeExternalUrl=0&order[volume]=asc&order[chapter]=asc&offset=0&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
+
+                    if (chapterResponse.IsSuccessStatusCode)
                     {
-                        id = manga.data.id,
-                        type = manga.data.type,
-                        author = relationship[0],
-                        poster = $"https://uploads.mangadex.org/covers/{manga.data.id}/{relationship[1]}",
-                        attributes = manga.data.attributes,
-                        relationships = manga.data.relationships
-                    });
+                        string chapterResponseData = await chapterResponse.Content.ReadAsStringAsync();
+
+                        MangaChapterResponse mangaChapter = JsonConvert.DeserializeObject<MangaChapterResponse>(chapterResponseData);
+
+                        System.Diagnostics.Debug.WriteLine(chapterResponseData);
+
+                        Manga.Add(new Manga
+                        {
+                            id = manga.data.id,
+                            type = manga.data.type,
+                            author = relationship[0],
+                            poster = $"https://uploads.mangadex.org/covers/{manga.data.id}/{relationship[1]}",
+                            attributes = manga.data.attributes,
+                            relationships = manga.data.relationships,
+                            chapter = mangaChapter.data
+                        });
+                    }
                 }
                 else
                 {

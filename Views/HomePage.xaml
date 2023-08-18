@@ -287,7 +287,8 @@
                             <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga}">
                                 <GridView.ItemTemplate>
                                     <DataTemplate x:DataType="models:Manga">
-                                        <Grid Width="180" Height="366" Padding="5" Tag="{x:Bind id}">
+                                        <Grid PointerPressed="Grid_PointerPressed" 
+                                              Width="180" Height="366" Padding="5" Tag="{x:Bind id}">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="8.5*" />
                                                 <RowDefinition Height="2*" />

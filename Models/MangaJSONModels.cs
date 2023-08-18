@@ -125,6 +125,11 @@ public class Manga
     {
         get; set;
     }
+
+    public List<MangaChapterVolume> chapter
+    {
+        get; set;
+    }
 }
 
 public class MangaTag

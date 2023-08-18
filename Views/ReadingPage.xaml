@@ -173,6 +173,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0">
@@ -188,6 +189,7 @@
                             <GridView 
                                 Grid.Row="1" 
                                 ItemsSource="{x:Bind attributes.tags}"
+                                Width="Auto"
                             >
                                 <GridView.ItemContainerStyle>
                                     <Style TargetType="GridViewItem">
@@ -209,17 +211,71 @@
                                 
                                 <GridView.ItemTemplate>
                                     <DataTemplate x:DataType="models:MangaTag">
-                                        <Button 
-                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                        >
-                                            <TextBlock 
-                                                Text="{x:Bind attributes.name.en}" 
-                                                HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                MinWidth="100" TextWrapping="NoWrap" Width="Auto"
-                                            />
-                                        </Button>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button 
+                                                Grid.Column="0"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                            >
+                                                <TextBlock 
+                                                    Text="{x:Bind attributes.name.en}" 
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                    MinWidth="100" TextWrapping="NoWrap" Width="Auto"
+                                                />
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+
+                            <GridView 
+                                Grid.Row="2" 
+                                ItemsSource="{x:Bind chapter}" 
+                                Width="Auto"
+                            >
+                                <GridView.ItemContainerStyle>
+                                    <Style TargetType="GridViewItem">
+                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="BorderThickness" Value="0" />
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="GridViewItem">
+                                                    <ListViewItemPresenter
+                                                        PointerOverBackground="Transparent"
+                                                    ></ListViewItemPresenter>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GridView.ItemContainerStyle>
+
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:MangaChapterVolume">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button 
+                                                Grid.Column="0"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                            >
+                                                <TextBlock 
+                                                    Text="{x:Bind attributes.chapter}" 
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                    MinWidth="100" TextWrapping="NoWrap" Width="Auto"
+                                                />
+                                            </Button>
+                                        </Grid>
                                     </DataTemplate>
                                 </GridView.ItemTemplate>
                             </GridView>

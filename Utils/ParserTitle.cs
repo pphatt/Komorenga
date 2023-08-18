@@ -65,17 +65,26 @@ namespace Komorenga.Utils
             {
                 if (currentAttributeAltTitle[i].jaRo != null)
                 {
-                    altTitles = currentAttributeAltTitle[i].jaRo;
+                    if (altTitles.Length < currentAttributeAltTitle[i].jaRo.Length)
+                    {
+                        altTitles = currentAttributeAltTitle[i].jaRo;
+                    }
                 }
 
                 if (currentAttributeAltTitle[i].ja != null)
                 {
-                    altTitles = currentAttributeAltTitle[i].ja;
+                    if (altTitles.Length < currentAttributeAltTitle[i].ja.Length)
+                    {
+                        altTitles = currentAttributeAltTitle[i].ja;
+                    }
                 }
 
                 if (currentAttributeAltTitle[i].en != null)
                 {
-                    altTitles = currentAttributeAltTitle[i].en;
+                    if (altTitles.Length < currentAttributeAltTitle[i].en.Length)
+                    {
+                        altTitles = currentAttributeAltTitle[i].en;
+                    }
                 }
             }
 
