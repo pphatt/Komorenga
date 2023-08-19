@@ -24,6 +24,7 @@
         <converter:ParserChapterTitle x:Key="ParserChapterTitle" />
         <converter:ParserPublishAtDate x:Key="ParserPublishAtDate" />
         <converter:ParserTranslationGroup  x:Key="ParserTranslationGroup" />
+        <converter:ParserChapterCount  x:Key="ParserChapterCount" />
 
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate">
             <ItemsStackPanel />
@@ -177,6 +178,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0">
@@ -236,9 +238,22 @@
                                 </GridView.ItemTemplate>
                             </GridView>
 
+                            <Grid Grid.Row="2" Margin="0 0 0 10">
+                                <Button>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="{x:Bind chapter.Count, Converter={StaticResource ParserChapterCount}}" />
+                                    </Grid>
+                                </Button>
+                            </Grid>
+
                             <StackPanel 
                                 Orientation="Vertical"
-                                Grid.Row="2"
+                                Grid.Row="3"
                             >
                                 <ItemsControl ItemsSource="{x:Bind chapter}" HorizontalContentAlignment="Stretch">
                                     <ItemsControl.ItemTemplate>
