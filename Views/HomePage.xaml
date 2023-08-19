@@ -20,6 +20,8 @@
 
     <Page.Resources>
         <converter:ParserTitle x:Key="ParserTitle" />
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
     </Page.Resources>
 
     <Grid Padding="20 10 0 0">
@@ -29,13 +31,17 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <ProgressRing IsActive="True"/>
+        </StackPanel>
+
         <TextBlock
             Grid.Row="0"
-            Text="Home" FontWeight="Bold" FontSize="18"/>
+            Text="Home" FontWeight="Bold" FontSize="18" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
 
         <Grid VerticalAlignment="Top" 
               HorizontalAlignment="Stretch" 
-              Grid.Row="1">
+              Grid.Row="1" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="*" />
@@ -96,6 +102,7 @@
             Grid.Row="2" VerticalAlignment="Top" 
             VerticalScrollBarVisibility="Auto"
             x:Name="LayoutScrollViewer"
+            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
         >
             <Grid Margin="0 0 0 0" Grid.Row="2" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
@@ -166,7 +173,7 @@
                         x:Name="PopularNewTitleScrollViewer"
                     >
                         <Grid Margin="0 0 0 0" x:Name="PopularNewTitleGridPanel">
-                            <GridView ItemsSource="{x:Bind ViewModel.Manga}">
+                            <GridView ItemsSource="{x:Bind ViewModel.PopularNewTitleManga, Mode=OneWay}">
                                 <GridView.ItemTemplate>
                                     <DataTemplate x:DataType="models:Manga">
                                         <Grid PointerPressed="Grid_PointerPressed" 
@@ -284,7 +291,7 @@
                         x:Name="SeasonalScrollViewer"
                     >
                         <Grid Margin="0 0 0 0" x:Name="SeasonalGridPanel">
-                            <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga}">
+                            <GridView ItemsSource="{x:Bind ViewModel.SeasonalManga, Mode=OneWay}">
                                 <GridView.ItemTemplate>
                                     <DataTemplate x:DataType="models:Manga">
                                         <Grid PointerPressed="Grid_PointerPressed" 

@@ -14,9 +14,6 @@ namespace Komorenga.Views;
 /// </summary>
 public sealed partial class HomePage : Page
 {
-    //ScrollViewer scrollViewer = ?.FindFirstChild<ScrollViewer>();
-    private readonly HttpClient _httpClient;
-
     public HomePage()
     {
         this.InitializeComponent();
@@ -46,11 +43,6 @@ public sealed partial class HomePage : Page
     {
         if (sender is Grid grid && grid.DataContext is Manga manga)
         {
-            //System.Diagnostics.Debug.WriteLine(manga.id);
-            //System.Diagnostics.Debug.WriteLine(manga.attributes.title.en);
-            //System.Diagnostics.Debug.WriteLine("");
-            //App.CurrentShell.SetContentFrame(typeof(Reading));
-
             Shell.CurrentShell.SetContentFrame(typeof(Reading));
 
             WeakReferenceMessenger.Default.Send(manga.id);

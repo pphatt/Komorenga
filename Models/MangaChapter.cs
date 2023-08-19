@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Komorenga.Models;
 
@@ -20,7 +16,7 @@ public class MangaChapterResponse
 
     public List<MangaChapterVolume> data
     {
-        get; set; 
+        get; set;
     }
 }
 
@@ -38,7 +34,7 @@ public class MangaChapterVolume
 
     public MangaChapterVolumeAttributes attributes
     {
-        get; set; 
+        get; set;
     }
 
     public List<MangaChapterVolumeRelationship> relationships
