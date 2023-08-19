@@ -42,7 +42,7 @@ internal class ReadingPageViewModels
 
                     List<string> relationship = GetCurrentMangaRelationship(manga.data);
 
-                    HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=96&translatedLanguage[]=en&includes[]=scanlation_group&includeExternalUrl=0&order[volume]=asc&order[chapter]=asc&offset=0&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
+                    HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=500&translatedLanguage[]=en&includes[]=scanlation_group&includeExternalUrl=0&order[volume]=desc&order[chapter]=desc&offset=0&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
 
                     if (chapterResponse.IsSuccessStatusCode)
                     {

@@ -40,6 +40,11 @@ public class MangaChapterVolume
     {
         get; set; 
     }
+
+    public List<MangaChapterVolumeRelationship> relationships
+    {
+        get; set;
+    }
 }
 
 public class MangaChapterVolumeAttributes
@@ -65,6 +70,32 @@ public class MangaChapterVolumeAttributes
     }
 
     public string pages
+    {
+        get; set;
+    }
+}
+
+public class MangaChapterVolumeRelationship
+{
+    public string id
+    {
+        get; set;
+    }
+
+    public string type
+    {
+        get; set;
+    }
+
+    public MangaChapterVolumeRelationshipAttributes attributes
+    {
+        get; set;
+    }
+}
+
+public class MangaChapterVolumeRelationshipAttributes
+{
+    public string name
     {
         get; set;
     }

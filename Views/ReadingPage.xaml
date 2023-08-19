@@ -21,6 +21,9 @@
         <converter:ParserTitle x:Key="ParserTitle" />
         <converter:ParserAltTitles x:Key="ParserAltTitles" />
         <converter:GetStatusIcon x:Key="GetStatusIcon" />
+        <converter:ParserChapterTitle x:Key="ParserChapterTitle" />
+        <converter:ParserPublishAtDate x:Key="ParserPublishAtDate" />
+        <converter:ParserTranslationGroup  x:Key="ParserTranslationGroup" />
 
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate">
             <ItemsStackPanel />
@@ -208,7 +211,7 @@
                                         </Setter>
                                     </Style>
                                 </GridView.ItemContainerStyle>
-                                
+
                                 <GridView.ItemTemplate>
                                     <DataTemplate x:DataType="models:MangaTag">
                                         <Grid>
@@ -233,52 +236,69 @@
                                 </GridView.ItemTemplate>
                             </GridView>
 
-                            <GridView 
-                                Grid.Row="2" 
-                                ItemsSource="{x:Bind chapter}" 
-                                Width="Auto"
+                            <StackPanel 
+                                Orientation="Vertical"
+                                Grid.Row="2"
                             >
-                                <GridView.ItemContainerStyle>
-                                    <Style TargetType="GridViewItem">
-                                        <Setter Property="Margin" Value="0"/>
-                                        <Setter Property="Padding" Value="0"/>
-                                        <Setter Property="BorderThickness" Value="0" />
+                                <ItemsControl ItemsSource="{x:Bind chapter}" HorizontalContentAlignment="Stretch">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="models:MangaChapterVolume">
+                                            <Grid Width="Auto" HorizontalAlignment="Stretch">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
 
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="GridViewItem">
-                                                    <ListViewItemPresenter
-                                                        PointerOverBackground="Transparent"
-                                                    ></ListViewItemPresenter>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </GridView.ItemContainerStyle>
+                                                <Button 
+                                                    Grid.Row="0"
+                                                    HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                                    HorizontalContentAlignment="Left"
+                                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                >
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="*" />
+                                                        </Grid.RowDefinitions>
 
-                                <GridView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:MangaChapterVolume">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
+                                                        <TextBlock 
+                                                            Grid.Row="0"
+                                                            Text="{x:Bind attributes, Converter={StaticResource ParserChapterTitle}}" 
+                                                            VerticalAlignment="Center" 
+                                                            MinWidth="100" TextWrapping="NoWrap" Width="Auto"
+                                                        />
 
-                                            <Button 
-                                                Grid.Column="0"
-                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                            >
-                                                <TextBlock 
-                                                    Text="{x:Bind attributes.chapter}" 
-                                                    HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                    MinWidth="100" TextWrapping="NoWrap" Width="Auto"
-                                                />
-                                            </Button>
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridView.ItemTemplate>
-                            </GridView>
+                                                        <Grid Grid.Row="1" HorizontalAlignment="Left">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition />
+                                                                <ColumnDefinition />
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            
+                                                            <TextBlock 
+                                                                Grid.Column="0"
+                                                                Text="{x:Bind attributes.publishAt, Converter={StaticResource ParserPublishAtDate}}" 
+                                                                VerticalAlignment="Center" 
+                                                                TextWrapping="NoWrap" Width="Auto"
+                                                            />
+
+                                                            <FontIcon FontSize="4" Grid.Column="1" Glyph="&#xF127;" Margin="8 0 8 0" />
+
+                                                            <TextBlock 
+                                                                Grid.Column="2"
+                                                                Text="{x:Bind relationships[0].attributes, Converter={StaticResource ParserTranslationGroup}}" 
+                                                                HorizontalTextAlignment="Left"
+                                                                VerticalAlignment="Center" 
+                                                                TextWrapping="NoWrap"
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </ScrollViewer>
