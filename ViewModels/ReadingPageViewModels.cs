@@ -54,9 +54,6 @@ internal class ReadingPageViewModels : INotifyPropertyChanged
 
             Task<List<Manga>> MangaDetailsAPIClient = FetchData($"https://api.mangadex.org/manga/{m}?includes[]=artist&includes[]=author&includes[]=cover_art");
 
-            System.Diagnostics.Debug.WriteLine("ID: " + m);
-            System.Diagnostics.Debug.WriteLine("");
-
             List<Manga> MangaDetails = await MangaDetailsAPIClient;
 
             Manga.Add(MangaDetails[0]);

@@ -282,6 +282,8 @@
                                                         HorizontalContentAlignment="Left"
                                                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                        Tag="{x:Bind attributes, Mode=OneWay}"
+                                                        Click="ReadChap"
                                                     >
                                                         <Grid>
                                                             <Grid.RowDefinitions>

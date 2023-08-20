@@ -14,7 +14,7 @@
             Height="48"
             x:Name="AppTitleBar"
             VerticalAlignment="Top"
-            >
+        >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -54,7 +54,7 @@
             ItemInvoked="NavigationViewControl_ItemInvoked"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             BackRequested="NavigationViewControl_BackRequested" 
-            >
+        >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Komorenga.Views.HomePage" />
                 <NavigationViewItem Icon="SolidStar" Content="Library" Tag="Komorenga.Views.Library" />

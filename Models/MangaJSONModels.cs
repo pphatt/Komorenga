@@ -2,6 +2,45 @@
 using static Komorenga.Models.MangaJSONModels;
 
 namespace Komorenga.Models;
+
+public class Manga
+{
+    public string id
+    {
+        get; set;
+    }
+
+    public string type
+    {
+        get; set;
+    }
+
+    public string author
+    {
+        get; set;
+    }
+
+    public string poster
+    {
+        get; set;
+    }
+
+    public MangaAttributes attributes
+    {
+        get; set;
+    }
+
+    public List<MangaRelationships> relationships
+    {
+        get; set;
+    }
+
+    public List<MangaChapterVolume> chapter
+    {
+        get; set;
+    }
+}
+
 public class MangaJSONModels
 {
     public class MangaJSON
@@ -91,44 +130,6 @@ public class MangaJSONModels
         {
             get; set;
         }
-    }
-}
-
-public class Manga
-{
-    public string id
-    {
-        get; set;
-    }
-
-    public string type
-    {
-        get; set;
-    }
-
-    public string author
-    {
-        get; set;
-    }
-
-    public string poster
-    {
-        get; set;
-    }
-
-    public MangaAttributes attributes
-    {
-        get; set;
-    }
-
-    public List<MangaRelationships> relationships
-    {
-        get; set;
-    }
-
-    public List<MangaChapterVolume> chapter
-    {
-        get; set;
     }
 }
 

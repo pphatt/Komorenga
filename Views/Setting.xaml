@@ -6,12 +6,52 @@
     xmlns:local="using:Komorenga.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    
+     xmlns:viewmodels="using:Komorenga.ViewModels"
+     xmlns:models="using:Komorenga.Models"
+     xmlns:converter="using:Komorenga.Utils"
+>
+    <Page.DataContext>
+        <viewmodels:SettingViewModels x:Name="ViewModel" />
+    </Page.DataContext>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <TextBlock TextWrapping="WrapWholeWords" Text="Column 1 sizes to its content.Column 1 sizes to its content.Column 1 sizes to its content.Column 1 sizes to its content.Column 1 sizes to its content." FontSize="24"/>
+        <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <ProgressRing IsActive="True"/>
+        </StackPanel>
+
+        <ScrollViewer
+            VerticalAlignment="Stretch" 
+            HorizontalContentAlignment="Stretch"
+            HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+            x:Name="PopularNewTitleScrollViewer"
+        >
+            <GridView
+                ItemsSource="{x:Bind ViewModel.Chapter, Mode=OneWay}" 
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+            >
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="models:MangaChapterImageUrl">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Image MinWidth="500" MinHeight="700" 
+                                   MaxWidth="1200" MaxHeight="1400"
+                                   HorizontalAlignment="Stretch" 
+                                   VerticalAlignment="Center" Stretch="Uniform"
+                            >
+                                <Image.Source>
+                                    <BitmapImage UriSource="{x:Bind url}" />
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </ScrollViewer>-->
     </Grid>
 </Page>
