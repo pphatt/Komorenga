@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
@@ -10,19 +11,63 @@ using static Komorenga.Models.MangaJSONModels;
 
 namespace Komorenga.ViewModels;
 
-internal class ReadingPageViewModels
+internal class ReadingPageViewModels : INotifyPropertyChanged
 {
-    public ObservableCollection<Manga> Manga { get; } = new();
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    private bool isLoading;
+
+    public bool IsLoading
+    {
+        get => isLoading;
+        set
+        {
+            isLoading = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLoading)));
+        }
+    }
+
+    private ObservableCollection<Manga> MangaData;
+
+    public ObservableCollection<Manga> Manga
+    {
+        get => MangaData;
+        set
+        {
+            MangaData = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Manga)));
+        }
+    }
 
     public ReadingPageViewModels()
     {
-        WeakReferenceMessenger.Default.Register<string>(this, (r, m) =>
+        MangaData = new ObservableCollection<Manga>();
+
+        _ = LoadFetchData();
+    }
+
+    private async Task LoadFetchData()
+    {
+        WeakReferenceMessenger.Default.Register<string>(this, async (r, m) =>
         {
-            _ = FetchData($"https://api.mangadex.org/manga/{m}?includes[]=artist&includes[]=author&includes[]=cover_art");
+            IsLoading = true;
+
+            Task<List<Manga>> MangaDetailsAPIClient = FetchData($"https://api.mangadex.org/manga/{m}?includes[]=artist&includes[]=author&includes[]=cover_art");
+
+            System.Diagnostics.Debug.WriteLine("ID: " + m);
+            System.Diagnostics.Debug.WriteLine("");
+
+            List<Manga> MangaDetails = await MangaDetailsAPIClient;
+
+            Manga.Add(MangaDetails[0]);
+
+            IsLoading = false;
+
+            WeakReferenceMessenger.Default.Unregister<string>(this);
         });
     }
 
-    private async Task FetchData(string url)
+    private async Task<List<Manga>> FetchData(string url)
     {
         using (HttpClient httpClient = new HttpClient())
         {
@@ -42,13 +87,13 @@ internal class ReadingPageViewModels
 
                     HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=500&translatedLanguage[]=en&includes[]=scanlation_group&includeExternalUrl=0&order[volume]=desc&order[chapter]=desc&offset=0&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
 
+                    List<Manga> Manga = new List<Manga>();
+
                     if (chapterResponse.IsSuccessStatusCode)
                     {
                         string chapterResponseData = await chapterResponse.Content.ReadAsStringAsync();
 
                         MangaChapterResponse mangaChapter = JsonConvert.DeserializeObject<MangaChapterResponse>(chapterResponseData);
-
-                        System.Diagnostics.Debug.WriteLine(chapterResponseData);
 
                         Manga.Add(new Manga
                         {
@@ -61,15 +106,19 @@ internal class ReadingPageViewModels
                             chapter = mangaChapter.data
                         });
                     }
+
+                    return Manga;
                 }
                 else
                 {
                     Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+                    return null;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
+                return null;
             }
         }
     }

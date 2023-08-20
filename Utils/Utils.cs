@@ -61,25 +61,25 @@ class ParserAltTitles : IValueConverter
 
     private string GetAltTitleByLanguage(List<Language> currentAttributeAltTitle)
     {
-        var en = currentAttributeAltTitle.Find(e => e.en != null).en;
+        var en = currentAttributeAltTitle.Find(e => e.en != null);
 
         if (en != null)
         {
-            return en;
+            return en.en;
         }
 
-        var ja = currentAttributeAltTitle.Find(e => e.ja != null).ja;
+        var ja = currentAttributeAltTitle.Find(e => e.ja != null);
 
         if (ja != null)
         {
-            return ja;
+            return ja.ja;
         }
 
-        var jaRo = currentAttributeAltTitle.Find(e => e.jaRo != null).jaRo;
+        var jaRo = currentAttributeAltTitle.Find(e => e.jaRo != null);
         
         if (jaRo != null)
         {
-            return jaRo;
+            return jaRo.jaRo;
         }
 
         return "Something went wrong... Try again";
