@@ -171,11 +171,19 @@ class ParserTranslationGroup : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        if (value is MangaChapterVolumeRelationshipAttributes attributes)
+        if (value is List<MangaChapterVolumeRelationship> relationships)
         {
-            if (attributes.name != null)
+            for (int i = 0; i < relationships.Count; i++)
             {
-                return attributes.name;
+                if (relationships[i].type == "scanlation_group")
+                {
+                    return relationships[i].attributes.name;
+                }
+
+                if (relationships[i].type == "user")
+                {
+                    return $"Uploaded by {relationships[i].attributes.username}";
+                }
             }
         }
 

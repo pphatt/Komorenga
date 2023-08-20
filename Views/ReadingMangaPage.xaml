@@ -56,7 +56,7 @@
 
                                 <Image HorizontalAlignment="Stretch" 
                                        VerticalAlignment="Center" Stretch="Uniform"
-                                       MaxWidth="500"
+                                       MaxWidth="1000"
                                 >
                                     <Image.Source>
                                         <BitmapImage UriSource="{x:Bind url}" />

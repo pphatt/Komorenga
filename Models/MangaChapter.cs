@@ -95,4 +95,9 @@ public class MangaChapterVolumeRelationshipAttributes
     {
         get; set;
     }
+
+    public string username
+    {
+        get; set;
+    }
 }

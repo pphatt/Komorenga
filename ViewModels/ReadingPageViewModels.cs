@@ -82,13 +82,15 @@ internal class ReadingPageViewModels : INotifyPropertyChanged
 
                     List<string> relationship = GetCurrentMangaRelationship(manga.data);
 
-                    HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=500&translatedLanguage[]=en&includes[]=scanlation_group&includeExternalUrl=0&order[volume]=desc&order[chapter]=desc&offset=0&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
+                    HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=500&translatedLanguage[]=en&includes[]=scanlation_group&includes[]=user&includeExternalUrl=0&order[volume]=desc&order[chapter]=desc&offset=0&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
 
                     List<Manga> Manga = new List<Manga>();
 
                     if (chapterResponse.IsSuccessStatusCode)
                     {
                         string chapterResponseData = await chapterResponse.Content.ReadAsStringAsync();
+
+                        System.Diagnostics.Debug.WriteLine(chapterResponseData);
 
                         MangaChapterResponse mangaChapter = JsonConvert.DeserializeObject<MangaChapterResponse>(chapterResponseData);
 

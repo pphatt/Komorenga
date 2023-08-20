@@ -316,7 +316,7 @@
 
                                                                 <TextBlock 
                                                                     Grid.Column="2"
-                                                                    Text="{x:Bind relationships[0].attributes, Mode=OneWay, Converter={StaticResource ParserTranslationGroup}}" 
+                                                                    Text="{x:Bind relationships, Mode=OneWay, Converter={StaticResource ParserTranslationGroup}}" 
                                                                     HorizontalTextAlignment="Left"
                                                                     VerticalAlignment="Center" 
                                                                     TextWrapping="NoWrap"
