@@ -48,11 +48,27 @@ class MostFollowsMangaViewModels : INotifyPropertyChanged
         _ = LoadFetchData();
     }
 
+    public async Task TriggerFetchContinuousScrolling()
+    {
+        IsLoading = true;
+
+        Task<List<Manga>> MostFollowsMangaAPICall = FetchData("https://api.mangadex.org/manga?limit=100&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order[followedCount]=desc");
+
+        List<Manga> MostFollowsManga = await MostFollowsMangaAPICall;
+
+        for (int i = 0; i < MostFollowsManga.Count; i++)
+        {
+            this.MostFollowsManga.Add(MostFollowsManga[i]);
+        }
+
+        IsLoading = false;
+    }
+
     private async Task LoadFetchData()
     {
         IsLoading = true;
 
-        Task<List<Manga>> MostFollowsMangaAPICall = FetchData("https://api.mangadex.org/manga?limit=30&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order[followedCount]=desc");
+        Task<List<Manga>> MostFollowsMangaAPICall = FetchData("https://api.mangadex.org/manga?limit=100&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order[followedCount]=desc");
 
         List<Manga> MostFollowsManga = await MostFollowsMangaAPICall;
 

@@ -7,6 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    NavigationCacheMode="Enabled"
+    CacheMode="BitmapCache"
     
     xmlns:viewmodels="using:Komorenga.ViewModels"
     xmlns:models="using:Komorenga.Models"
@@ -81,12 +83,22 @@
                 <ScrollViewer 
                     Grid.Row="1" 
                     VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto"
+                    ViewChanged="ScrollViewer_ViewChanged"
                 >
                     <GridView ItemsSource="{x:Bind ViewModel.MostFollowsManga, Mode=OneWay}" >
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Manga">
-                                <StackPanel Width="180" Height="366" Padding="5">
+                                <Grid PointerPressed="Grid_PointerPressed" 
+                                      Width="180" Height="366" Padding="5"
+                                >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="8.5*" />
+                                        <RowDefinition Height="2*" />
+                                        <RowDefinition Height="1.5*" />
+                                    </Grid.RowDefinitions>
+
                                     <StackPanel
+                                        Grid.Row="0"
                                         CornerRadius="8"
                                         BorderThickness="1"
                                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -94,7 +106,7 @@
                                         HorizontalAlignment="Center" VerticalAlignment="Center"
                                     >
                                         <Image Width="auto" Height="250"
-                                                HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
                                             <Image.Source>
                                                 <BitmapImage UriSource="{x:Bind poster}" />
                                             </Image.Source>
@@ -102,6 +114,7 @@
                                     </StackPanel>
 
                                     <TextBlock 
+                                        Grid.Row="1" 
                                         TextWrapping="Wrap" 
                                         TextTrimming="WordEllipsis"
                                         MaxLines="2"
@@ -111,13 +124,14 @@
                                         ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
                                     ></TextBlock>
                                     <TextBlock 
+                                        Grid.Row="2"
                                         TextWrapping="Wrap" 
                                         TextTrimming="WordEllipsis" 
                                         MaxLines="2"
                                         Text="{x:Bind author}"
                                         ToolTipService.ToolTip="{x:Bind author}"
                                     ></TextBlock>
-                                </StackPanel>
+                                </Grid>
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
