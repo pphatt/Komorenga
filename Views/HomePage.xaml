@@ -13,7 +13,6 @@
     xmlns:models="using:Komorenga.Models"
     xmlns:converter="using:Komorenga.Utils"
 >
-
     <Page.DataContext>
         <viewmodels:HomePageViewModels x:Name="ViewModel" />
     </Page.DataContext>

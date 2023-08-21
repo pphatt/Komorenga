@@ -46,7 +46,7 @@
             IsTabStop="False" 
             IsPaneOpen="False"
             
-            OpenPaneLength="200"
+            OpenPaneLength="240"
             
             IsBackEnabled="True"
             IsBackButtonVisible="Visible"
@@ -57,7 +57,12 @@
         >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Komorenga.Views.HomePage" />
-                <NavigationViewItem Icon="SolidStar" Content="Library" Tag="Komorenga.Views.Library" />
+                <NavigationViewItemHeader Content="Titles" />
+                <NavigationViewItem Content="Most Follows Mangas" Tag="Komorenga.Views.MostFollowsMangaPage">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets/book-open-solid-24.png" ShowAsMonochrome="True" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" />
         </NavigationView>
