@@ -39,6 +39,16 @@ public sealed partial class HomePage : Page
         SeasonalScrollViewer.ChangeView(SeasonalScrollViewer.HorizontalOffset - 200, 0, 1.0f);
     }
 
+    private void MostFollowsNextScroll(object render, RoutedEventArgs e)
+    {
+        MostFollowsScrollViewer.ChangeView(MostFollowsScrollViewer.HorizontalOffset + 200, 0, 1.0f);
+    }
+
+    private void MostFollowsBackwardScroll(object render, RoutedEventArgs e)
+    {
+        MostFollowsScrollViewer.ChangeView(MostFollowsScrollViewer.HorizontalOffset - 200, 0, 1.0f);
+    }
+
     private void Grid_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
         if (sender is Grid grid && grid.DataContext is Manga manga)

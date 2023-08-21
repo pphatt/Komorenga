@@ -12,7 +12,7 @@
     xmlns:viewmodels="using:Komorenga.ViewModels"
     xmlns:models="using:Komorenga.Models"
     xmlns:converter="using:Komorenga.Utils"
-    >
+>
 
     <Page.DataContext>
         <viewmodels:HomePageViewModels x:Name="ViewModel" />
@@ -106,6 +106,7 @@
         >
             <Grid Margin="0 0 0 0" Grid.Row="2" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -344,6 +345,127 @@
                             </GridView>
                         </Grid>
                         </ScrollViewer>
+                </Grid>
+
+
+                <!--MOST FOLLOWS MANGA GRID-->
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" BorderBrush="Transparent">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="Most Follows Manga" FontWeight="Bold" FontSize="16" />
+
+                                <FontIcon VerticalAlignment="Center" Grid.Column="1"
+                                Glyph="&#xE76C;" 
+                                FontSize="14" Margin="8 2 0 0" />
+                            </Grid>
+                        </Button>
+
+                        <CommandBar 
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"  
+                            DefaultLabelPosition="Right"
+                        >
+                            <AppBarButton Click="MostFollowsBackwardScroll" ToolTipService.ToolTip="">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontSize="14" Glyph="&#xE76B;" />
+                                </AppBarButton.Icon>
+
+                                <AppBarButton.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="R"/>
+                                </AppBarButton.KeyboardAccelerators>
+                            </AppBarButton>
+
+                            <AppBarButton Click="MostFollowsNextScroll" ToolTipService.ToolTip="">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontSize="14" Glyph="&#xE76C;" />
+                                </AppBarButton.Icon>
+
+                                <AppBarButton.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="R"/>
+                                </AppBarButton.KeyboardAccelerators>
+                            </AppBarButton>
+                        </CommandBar>
+                    </Grid>
+
+                    <ScrollViewer 
+                        Grid.Row="1" VerticalAlignment="Top" 
+                        Height="380" Width="Auto" 
+                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                        x:Name="MostFollowsScrollViewer"
+                    >
+                        <Grid Margin="0 0 0 0" x:Name="MostFollowsGridPanel">
+                            <GridView ItemsSource="{x:Bind ViewModel.MostFollowsManga, Mode=OneWay}">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Manga">
+                                        <Grid PointerPressed="Grid_PointerPressed" 
+                                              Width="180" Height="366" Padding="5" Tag="{x:Bind id}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="8.5*" />
+                                                <RowDefinition Height="2*" />
+                                                <RowDefinition Height="1.5*" />
+                                            </Grid.RowDefinitions>
+
+                                            <StackPanel
+                                                Grid.Row="0"
+                                                CornerRadius="8"
+                                                BorderThickness="1"
+                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            >
+                                                <!--Height can be 210??-->
+                                                <Image Width="auto" Height="250"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
+                                                    <Image.Source>
+                                                        <BitmapImage UriSource="{x:Bind poster}" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </StackPanel>
+
+                                            <TextBlock 
+                                                Grid.Row="1" 
+                                                TextWrapping="Wrap" 
+                                                TextTrimming="WordEllipsis"
+                                                MaxLines="2"
+                                                FontSize="16"
+                                                FontWeight="SemiBold"
+                                                Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                                ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                            ></TextBlock>
+                                            <TextBlock 
+                                                Grid.Row="2"
+                                                TextWrapping="Wrap" 
+                                                TextTrimming="WordEllipsis" 
+                                                MaxLines="2"
+                                                Text="{x:Bind author}"
+                                                ToolTipService.ToolTip="{x:Bind author}"
+                                            >
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </Grid>
         </ScrollViewer>
