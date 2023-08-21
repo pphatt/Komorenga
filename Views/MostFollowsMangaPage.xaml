@@ -42,21 +42,17 @@
             Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
         >
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!--MOST FOLLOWS MANGA GRID-->
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition MaxHeight="1000" Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Row="0" Margin="0 10 0 0">
+                <Grid Grid.Row="0" Margin="0 10 0 10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
@@ -83,26 +79,13 @@
                 </Grid>
 
                 <ScrollViewer 
-                    Grid.Row="1" Grid.Column="0" 
-                    HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-                    x:Name="PopularNewTitleScrollViewer"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
+                    Grid.Row="1" 
+                    VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto"
                 >
-                    <GridView 
-                        ItemsSource="{x:Bind ViewModel.MostFollowsManga, Mode=OneWay}"
-                        HorizontalAlignment="Center"
-                        Background="Red"
-                    >
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsWrapGrid Orientation="Vertical" />
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                        
+                    <GridView ItemsSource="{x:Bind ViewModel.MostFollowsManga, Mode=OneWay}" >
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Manga">
-                                <StackPanel Width="180" Height="366" Padding="5" Background="Blue">
+                                <StackPanel Width="180" Height="366" Padding="5">
                                     <StackPanel
                                         CornerRadius="8"
                                         BorderThickness="1"
