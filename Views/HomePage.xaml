@@ -169,7 +169,7 @@
     
                     <ScrollViewer Grid.Row="1" VerticalAlignment="Top" 
                         Height="380" Width="Auto" 
-                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
                         x:Name="PopularNewTitleScrollViewer"
                     >
                         <Grid Margin="0 0 0 0" x:Name="PopularNewTitleGridPanel">
@@ -287,7 +287,7 @@
                     <ScrollViewer 
                         Grid.Row="1" VerticalAlignment="Top" 
                         Height="380" Width="Auto" 
-                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
                         x:Name="SeasonalScrollViewer"
                     >
                         <Grid Margin="0 0 0 0" x:Name="SeasonalGridPanel">
@@ -408,7 +408,7 @@
                     <ScrollViewer 
                         Grid.Row="1" VerticalAlignment="Top" 
                         Height="380" Width="Auto" 
-                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                        HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
                         x:Name="MostFollowsScrollViewer"
                     >
                         <Grid Margin="0 0 0 0" x:Name="MostFollowsGridPanel">
