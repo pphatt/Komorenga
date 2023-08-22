@@ -10,6 +10,8 @@
     NavigationCacheMode="Enabled"
     CacheMode="BitmapCache"
     
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    
     xmlns:viewmodels="using:Komorenga.ViewModels"
     xmlns:models="using:Komorenga.Models"
     xmlns:converter="using:Komorenga.Utils"
@@ -22,6 +24,53 @@
         <converter:ParserTitle x:Key="ParserTitle" />
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converter:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+
+        <DataTemplate x:Name="ManagaTemplate" x:DataType="models:Manga">
+            <Grid PointerPressed="Grid_PointerPressed" 
+                  Width="200" Height="400" Padding="5"
+            >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8.5*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="1.5*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel
+                    Grid.Row="0"
+                    CornerRadius="8"
+                    BorderThickness="1"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                >
+                    <Image Width="auto" Height="270"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
+                        <Image.Source>
+                            <BitmapImage UriSource="{x:Bind poster}" />
+                        </Image.Source>
+                    </Image>
+                </StackPanel>
+
+                <TextBlock 
+                    Grid.Row="1" 
+                    TextWrapping="Wrap" 
+                    TextTrimming="WordEllipsis"
+                    MaxLines="2"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                    ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                ></TextBlock>
+                <TextBlock 
+                    Grid.Row="2"
+                    TextWrapping="Wrap" 
+                    TextTrimming="WordEllipsis" 
+                    MaxLines="2"
+                    Text="{x:Bind author}"
+                    ToolTipService.ToolTip="{x:Bind author}"
+                ></TextBlock>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Padding="20 10 0 0">
@@ -80,64 +129,18 @@
                     </Button>
                 </Grid>
 
-                <ScrollViewer 
-                    Grid.Row="1" 
-                    VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto"
-                    ViewChanged="ScrollViewer_ViewChanged"
-                >
-                    <GridView x:Name="MyGridView" 
-                              ItemsSource="{x:Bind ViewModel.MostFollowsManga, Mode=OneWay}"
-                    >
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Manga">
-                                <Grid PointerPressed="Grid_PointerPressed" 
-                                      Width="200" Height="400" Padding="5"
-                                >
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="8.5*" />
-                                        <RowDefinition Height="2*" />
-                                        <RowDefinition Height="1.5*" />
-                                    </Grid.RowDefinitions>
-
-                                    <StackPanel
-                                        Grid.Row="0"
-                                        CornerRadius="8"
-                                        BorderThickness="1"
-                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    >
-                                        <Image Width="auto" Height="270"
-                                               HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
-                                            <Image.Source>
-                                                <BitmapImage UriSource="{x:Bind poster}" />
-                                            </Image.Source>
-                                        </Image>
-                                    </StackPanel>
-
-                                    <TextBlock 
-                                        Grid.Row="1" 
-                                        TextWrapping="Wrap" 
-                                        TextTrimming="WordEllipsis"
-                                        MaxLines="2"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
-                                        ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
-                                    ></TextBlock>
-                                    <TextBlock 
-                                        Grid.Row="2"
-                                        TextWrapping="Wrap" 
-                                        TextTrimming="WordEllipsis" 
-                                        MaxLines="2"
-                                        Text="{x:Bind author}"
-                                        ToolTipService.ToolTip="{x:Bind author}"
-                                    ></TextBlock>
-                                </Grid>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
-                </ScrollViewer>
+                <Grid Grid.Row="1">
+                    <controls:AdaptiveGridView 
+                        Name="AdaptiveGridViewControl"
+                        StretchContentForSingleRow="False"
+                        OneRowModeEnabled="False"
+                        ItemHeight="400"
+                        DesiredWidth="215"
+                        SelectionMode="Single"
+                        IsItemClickEnabled="True"
+                        ItemTemplate="{StaticResource ManagaTemplate}" 
+                        ItemsSource="{x:Bind ViewModel.MostFollowsManga, Mode=OneWay}" />
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
