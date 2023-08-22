@@ -85,11 +85,13 @@
                     VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto"
                     ViewChanged="ScrollViewer_ViewChanged"
                 >
-                    <GridView ItemsSource="{x:Bind ViewModel.MostFollowsManga, Mode=OneWay}" >
+                    <GridView x:Name="MyGridView" 
+                              ItemsSource="{x:Bind ViewModel.MostFollowsManga, Mode=OneWay}"
+                    >
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Manga">
                                 <Grid PointerPressed="Grid_PointerPressed" 
-                                      Width="180" Height="366" Padding="5"
+                                      Width="200" Height="400" Padding="5"
                                 >
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="8.5*" />
@@ -105,7 +107,7 @@
                                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                         HorizontalAlignment="Center" VerticalAlignment="Center"
                                     >
-                                        <Image Width="auto" Height="250"
+                                        <Image Width="auto" Height="270"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
                                             <Image.Source>
                                                 <BitmapImage UriSource="{x:Bind poster}" />

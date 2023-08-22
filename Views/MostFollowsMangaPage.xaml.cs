@@ -55,6 +55,31 @@ namespace Komorenga.Views
             //        viewModel.FetchAdditionalData();
             //    }
             //}
+
+            //var _panel = (ItemsWrapGrid)MyGridView.ItemsPanelRoot;
+            //var _actual = VisualStateGroup.CurrentState;
+            //int _gridColumnNumber;
+
+            //switch (_actual.Name)
+            //{
+            //    case "medium":
+            //        {
+            //            _gridColumnNumber = 2;
+            //            break;
+            //        }
+            //    case "large":
+            //        {
+            //            _gridColumnNumber = 3;
+            //            break;
+            //        }
+            //    default:
+            //        {
+            //            _gridColumnNumber = 1;
+            //            break;
+            //        }
+            //}
+
+            //_panel.ItemWidth = ScrollViewer.ActualWidth / _gridColumnNumber;
         }
     }
 }
