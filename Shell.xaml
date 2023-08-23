@@ -57,6 +57,11 @@
         >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Komorenga.Views.HomePage" />
+                <NavigationViewItem Content="Search" Tag="Komorenga.Views.SearchPage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xF78B;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItemHeader Content="Titles" />
                 <NavigationViewItem Content="Most Follows Mangas" Tag="Komorenga.Views.MostFollowsMangaPage">
                     <NavigationViewItem.Icon>

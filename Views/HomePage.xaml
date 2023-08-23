@@ -170,7 +170,7 @@
                             </AppBarButton>
                         </CommandBar>
                     </Grid>
-    
+
                     <ScrollViewer Grid.Row="1" VerticalAlignment="Top" 
                         Height="380" Width="Auto" 
                         HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"

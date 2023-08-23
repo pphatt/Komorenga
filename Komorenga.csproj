@@ -17,6 +17,7 @@
     <None Remove="Views\MostFollowsMangaPage.xaml" />
     <None Remove="Views\ReadingMangaPage.xaml" />
     <None Remove="Views\ReadingPage.xaml" />
+    <None Remove="Views\SearchPage.xaml" />
     <None Remove="Views\Setting.xaml" />
   </ItemGroup>
 
@@ -46,6 +47,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\SearchPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\MostFollowsMangaPage.xaml">

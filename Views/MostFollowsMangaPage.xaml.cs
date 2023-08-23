@@ -41,45 +41,5 @@ namespace Komorenga.Views
                 WeakReferenceMessenger.Default.Send(manga.id);
             }
         }
-
-        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            //var scrollViewer = sender as ScrollViewer;
-            //double desiredScrollOffset = ...; // Set your desired scroll offset here
-
-            //if (scrollViewer.VerticalOffset >= desiredScrollOffset)
-            //{
-            //    // Get the ViewModel instance from DataContext and call the method
-            //    if (DataContext is YourViewModel viewModel)
-            //    {
-            //        viewModel.FetchAdditionalData();
-            //    }
-            //}
-
-            //var _panel = (ItemsWrapGrid)MyGridView.ItemsPanelRoot;
-            //var _actual = VisualStateGroup.CurrentState;
-            //int _gridColumnNumber;
-
-            //switch (_actual.Name)
-            //{
-            //    case "medium":
-            //        {
-            //            _gridColumnNumber = 2;
-            //            break;
-            //        }
-            //    case "large":
-            //        {
-            //            _gridColumnNumber = 3;
-            //            break;
-            //        }
-            //    default:
-            //        {
-            //            _gridColumnNumber = 1;
-            //            break;
-            //        }
-            //}
-
-            //_panel.ItemWidth = ScrollViewer.ActualWidth / _gridColumnNumber;
-        }
     }
 }
