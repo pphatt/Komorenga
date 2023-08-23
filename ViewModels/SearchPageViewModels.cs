@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Messaging;
 using Komorenga.Models;
 using Newtonsoft.Json;
 using static Komorenga.Models.MangaJSONModels;
@@ -44,10 +45,10 @@ class SearchPageViewModels : INotifyPropertyChanged
     {
         AdvanceSearchMangaCollection = new();
 
-        _ = LoadFetchData();
+        LoadFetchData();
     }
 
-    public async Task AdvanceSearchMangaAsync(string title, string sort)
+    public async void AdvanceSearchMangaAsync(string title, string sort)
     {
         AdvanceSearchMangaCollection.Clear();
 
@@ -69,7 +70,7 @@ class SearchPageViewModels : INotifyPropertyChanged
         IsLoading = false;
     }
 
-    private async Task LoadFetchData()
+    private async void LoadFetchData()
     {
         IsLoading = true;
 

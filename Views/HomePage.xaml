@@ -91,7 +91,6 @@
                             PlaceholderText="Search"
                             ToolTipService.ToolTip="Search Managa (Control + S)"
                             x:Name="AutoSuggestBox"
-                            QuerySubmitted="AutoSuggest_QuerySubmitted"
                             TextChanged="AutoSuggest_TextChanged"
                             SuggestionChosen="AutoSuggestBox_SuggestionChosen"
             >

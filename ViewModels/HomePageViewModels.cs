@@ -80,7 +80,7 @@ internal class HomePageViewModels : INotifyPropertyChanged
         MostFollowsMangaCollection = new ObservableCollection<Manga>();
         SearchMangaCollection = new ObservableCollection<Manga>();
 
-        _ = LoadFetchData();
+        LoadFetchData();
     }
 
     public async Task<List<Manga>> SearchMangaAsync(string title)
@@ -103,7 +103,7 @@ internal class HomePageViewModels : INotifyPropertyChanged
         return SearchManga;
     }
 
-    private async Task LoadFetchData()
+    private async void LoadFetchData()
     {
         IsLoading = true;
 

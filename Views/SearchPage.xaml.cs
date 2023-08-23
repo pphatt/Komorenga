@@ -15,6 +15,7 @@ using Microsoft.UI.Xaml.Navigation;
 using CommunityToolkit.Mvvm.Messaging;
 using Komorenga.Models;
 using Windows.ApplicationModel.Activation;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,6 +30,16 @@ namespace Komorenga.Views
         public SearchPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is string search)
+            {
+                AutoSuggestBox.Text = search;
+            }
         }
 
         private void Grid_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -48,17 +59,20 @@ namespace Komorenga.Views
 
         private async void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+            SearchAsyncByTitle(sender.Text.Trim());
+        }
+
+        private void SearchAsyncByTitle(string search)
+        {
             if (SortTypeTextBlock.Text != "Best Match")
             {
                 SortTypeTextBlock.Text = "Best Match";
             }
 
-            var input = sender.Text.Trim();
-
-            await ViewModel.AdvanceSearchMangaAsync(input, "[relevance]=desc");
+            ViewModel.AdvanceSearchMangaAsync(search, "[relevance]=desc");
         }
 
-        private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuFlyoutItem item)
             {
@@ -109,7 +123,7 @@ namespace Komorenga.Views
                         break;
                 }
 
-                await ViewModel.AdvanceSearchMangaAsync(AutoSuggestBox.Text.Trim(), selectedItem);
+                ViewModel.AdvanceSearchMangaAsync(AutoSuggestBox.Text.Trim(), selectedItem);
             }
         }
     }

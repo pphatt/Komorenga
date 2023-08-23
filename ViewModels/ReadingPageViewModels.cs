@@ -43,10 +43,10 @@ internal class ReadingPageViewModels : INotifyPropertyChanged
     {
         MangaData = new ObservableCollection<Manga>();
 
-        _ = LoadFetchData();
+        LoadFetchData();
     }
 
-    private async Task LoadFetchData()
+    private void LoadFetchData()
     {
         WeakReferenceMessenger.Default.Register<string>(this, async (r, m) =>
         {

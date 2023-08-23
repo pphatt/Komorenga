@@ -45,10 +45,10 @@ class MostFollowsMangaViewModels : INotifyPropertyChanged
     {
         MostFollowsMangaCollection = new ObservableCollection<Manga>();
 
-        _ = LoadFetchData();
+        LoadFetchData();
     }
 
-    public async Task TriggerFetchContinuousScrolling()
+    public async void TriggerFetchContinuousScrolling()
     {
         IsLoading = true;
 
@@ -64,7 +64,7 @@ class MostFollowsMangaViewModels : INotifyPropertyChanged
         IsLoading = false;
     }
 
-    private async Task LoadFetchData()
+    private async void LoadFetchData()
     {
         IsLoading = true;
 

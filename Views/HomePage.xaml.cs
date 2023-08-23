@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Reflection.Metadata;
@@ -60,11 +61,6 @@ public sealed partial class HomePage : Page
 
             WeakReferenceMessenger.Default.Send(manga.id);
         }
-    }
-
-    private void AutoSuggest_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-
     }
 
     private async void AutoSuggest_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
