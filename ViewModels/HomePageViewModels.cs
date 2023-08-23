@@ -31,6 +31,7 @@ internal class HomePageViewModels : INotifyPropertyChanged
     private ObservableCollection<Manga> PopularNewTitleMangaCollection;
     private ObservableCollection<Manga> SeasonalMangaCollection;
     private ObservableCollection<Manga> MostFollowsMangaCollection;
+    private ObservableCollection<Manga> SearchMangaCollection;
 
     public ObservableCollection<Manga> PopularNewTitleManga
     {
@@ -62,13 +63,54 @@ internal class HomePageViewModels : INotifyPropertyChanged
         }
     }
 
+    public ObservableCollection<Manga> SearchManga
+    {
+        get => SearchMangaCollection;
+        set
+        {
+            SearchMangaCollection = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SearchManga)));
+        }
+    }
+
     public HomePageViewModels()
     {
         PopularNewTitleMangaCollection = new ObservableCollection<Manga>();
         SeasonalMangaCollection = new ObservableCollection<Manga>();
         MostFollowsMangaCollection = new ObservableCollection<Manga>();
+        SearchMangaCollection = new ObservableCollection<Manga>();
 
         _ = LoadFetchData();
+    }
+
+    public async Task<List<Manga>> SearchMangaAsync(string title)
+    {
+        SearchMangaCollection.Clear();
+
+        if (title == "")
+        {
+            Task<List<Manga>> LatestUpLoadMangaAPICall = FetchData($"https://api.mangadex.org/manga?limit=10&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order[latestUploadedChapter]=desc");
+
+            List<Manga> LatestUpLoadManga = await LatestUpLoadMangaAPICall;
+
+            foreach (var manga in LatestUpLoadManga)
+            {
+                this.SearchManga.Add(manga);
+            }
+
+            return LatestUpLoadManga;
+        }
+
+        Task<List<Manga>> SearchMangaAPICall = FetchData($"https://api.mangadex.org/manga?limit=10&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&title={title}&order[relevance]=desc");
+
+        List<Manga> SearchManga = await SearchMangaAPICall;
+
+        foreach(var manga in SearchManga)
+        {
+            this.SearchManga.Add(manga);
+        }
+
+        return SearchManga;
     }
 
     private async Task LoadFetchData()

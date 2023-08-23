@@ -90,9 +90,13 @@
                             Margin="0 0 20 0"
                             PlaceholderText="Search"
                             ToolTipService.ToolTip="Search Managa (Control + S)"
-                            x:Name="AutoSuggest">
+                            x:Name="AutoSuggestBox"
+                            QuerySubmitted="AutoSuggest_QuerySubmitted"
+                            TextChanged="AutoSuggest_TextChanged"
+                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+            >
                 <AutoSuggestBox.KeyboardAccelerators>
-                    <KeyboardAccelerator Modifiers="Control" Key="S" x:Name="AutoSuggestKBA"/>
+                    <KeyboardAccelerator Modifiers="Control" Key="S" x:Name="AutoSuggestShortcut" Invoked="AutoSuggest_Invoked"/>
                 </AutoSuggestBox.KeyboardAccelerators>
             </AutoSuggestBox>
         </Grid>
