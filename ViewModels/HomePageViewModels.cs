@@ -87,21 +87,11 @@ internal class HomePageViewModels : INotifyPropertyChanged
     {
         SearchMangaCollection.Clear();
 
-        if (title == "")
-        {
-            Task<List<Manga>> LatestUpLoadMangaAPICall = FetchData($"https://api.mangadex.org/manga?limit=10&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order[latestUploadedChapter]=desc");
+        string QueryURL = title == "" ?
+            $"https://api.mangadex.org/manga?limit=10&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order[latestUploadedChapter]=desc" :
+            $"https://api.mangadex.org/manga?limit=10&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&title={title}&order[relevance]=desc";
 
-            List<Manga> LatestUpLoadManga = await LatestUpLoadMangaAPICall;
-
-            foreach (var manga in LatestUpLoadManga)
-            {
-                this.SearchManga.Add(manga);
-            }
-
-            return LatestUpLoadManga;
-        }
-
-        Task<List<Manga>> SearchMangaAPICall = FetchData($"https://api.mangadex.org/manga?limit=10&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&title={title}&order[relevance]=desc");
+        Task<List<Manga>> SearchMangaAPICall = FetchData(QueryURL);
 
         List<Manga> SearchManga = await SearchMangaAPICall;
 
