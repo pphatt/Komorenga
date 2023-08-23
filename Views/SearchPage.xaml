@@ -90,7 +90,8 @@
 
         <Grid VerticalAlignment="Top" 
               HorizontalAlignment="Stretch" 
-              Grid.Row="1">
+              Grid.Row="1"
+        >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -112,12 +113,12 @@
                 </AutoSuggestBox.KeyboardAccelerators>
             </AutoSuggestBox>
 
-            <CommandBar Grid.Column="1"
-                        HorizontalAlignment="Right"  
-                        DefaultLabelPosition="Collapsed"
-                        Style="{StaticResource CustomAppBarButtonStyle}"
+            <CommandBar 
+                Grid.Column="1"
+                HorizontalAlignment="Right"  
+                DefaultLabelPosition="Collapsed"
             >
-                <AppBarButton ToolTipService.ToolTip="Row View">
+                <AppBarButton Content="" ToolTipService.ToolTip="Row View">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE8FD;" />
                     </AppBarButton.Icon>
@@ -127,9 +128,9 @@
                     </AppBarButton.KeyboardAccelerators>
                 </AppBarButton>
 
-                <AppBarButton ToolTipService.ToolTip="Grid View">
+                <AppBarButton Content="" ToolTipService.ToolTip="Column View">
                     <AppBarButton.Icon>
-                        <FontIcon Glyph="&#xF0E2;" />
+                        <FontIcon Glyph="&#xE94E;" />
                     </AppBarButton.Icon>
 
                     <AppBarButton.KeyboardAccelerators>
@@ -137,9 +138,9 @@
                     </AppBarButton.KeyboardAccelerators>
                 </AppBarButton>
 
-                <AppBarButton ToolTipService.ToolTip="Column View">
+                <AppBarButton Content="" ToolTipService.ToolTip="Grid View">
                     <AppBarButton.Icon>
-                        <FontIcon Glyph="&#xE94E;" />
+                        <FontIcon Glyph="&#xF0E2;" />
                     </AppBarButton.Icon>
 
                     <AppBarButton.KeyboardAccelerators>
