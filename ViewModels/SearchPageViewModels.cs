@@ -61,7 +61,7 @@ class SearchPageViewModels : INotifyPropertyChanged
             cancellationTokenSource?.Cancel();
             cancellationTokenSource = new CancellationTokenSource();
 
-            await Task.Delay(3000, cancellationTokenSource.Token);
+            await Task.Delay(1500, cancellationTokenSource.Token);
 
             cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
@@ -141,8 +141,6 @@ class SearchPageViewModels : INotifyPropertyChanged
                         });
                     }
 
-                    System.Diagnostics.Debug.WriteLine(mangas.Count);
-
                     return mangas;
                 }
                 else
@@ -153,7 +151,6 @@ class SearchPageViewModels : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(url);
                 System.Diagnostics.Debug.WriteLine($"An error occurred: {ex.Message}");
                 return null;
             }

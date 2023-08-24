@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Komorenga.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
@@ -239,6 +240,28 @@ public class InverseBooleanToVisibilityConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         if (value is bool isVisible && !isVisible)
+        {
+            return Visibility.Visible;
+        }
+        else
+        {
+            return Visibility.Collapsed;
+        }
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class NoResultWasFound : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, string language)
+    {
+        System.Diagnostics.Debug.WriteLine(value);
+
+        if (value is int count && count == 0)
         {
             return Visibility.Visible;
         }
