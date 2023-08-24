@@ -59,17 +59,19 @@ namespace Komorenga.Views
 
         private async void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            SearchAsyncByTitle(sender.Text.Trim());
+            System.Diagnostics.Debug.WriteLine(sender.Text.Trim());
+
+            await SearchAsyncByTitle(sender.Text.Trim());
         }
 
-        private void SearchAsyncByTitle(string search)
+        private async Task SearchAsyncByTitle(string search)
         {
             if (SortTypeTextBlock.Text != "Best Match")
             {
                 SortTypeTextBlock.Text = "Best Match";
             }
 
-            ViewModel.AdvanceSearchMangaAsync(search, "[relevance]=desc");
+            await ViewModel.AdvanceSearchMangaAsync(search, "[relevance]=desc");
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)

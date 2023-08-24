@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using Komorenga.Models;
@@ -41,6 +42,8 @@ class SearchPageViewModels : INotifyPropertyChanged
         }
     }
 
+    private CancellationTokenSource cancellationTokenSource = new();
+
     public SearchPageViewModels()
     {
         AdvanceSearchMangaCollection = new();
@@ -48,29 +51,46 @@ class SearchPageViewModels : INotifyPropertyChanged
         LoadFetchData();
     }
 
-    public async void AdvanceSearchMangaAsync(string title, string sort)
+    public async Task AdvanceSearchMangaAsync(string title, string sort)
     {
-        AdvanceSearchMangaCollection.Clear();
-
-        IsLoading = true;
-
-        string QueryURL = title == "" ?
-           $"https://api.mangadex.org/manga?limit=100&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order{sort}" :
-           $"https://api.mangadex.org/manga?limit=100&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&title={title}&order{sort}";
-
-        Task<List<Manga>> SearchMangaAPICall = FetchData(QueryURL);
-
-        List<Manga> SearchManga = await SearchMangaAPICall;
-
-        foreach (var manga in SearchManga)
+        try
         {
-            this.AdvanceSearchManga.Add(manga);
-        }
+            IsLoading = true;
+            AdvanceSearchMangaCollection.Clear();
 
-        IsLoading = false;
+            cancellationTokenSource?.Cancel();
+            cancellationTokenSource = new CancellationTokenSource();
+
+            await Task.Delay(3000, cancellationTokenSource.Token);
+
+            cancellationTokenSource.Token.ThrowIfCancellationRequested();
+
+            string QueryURL = title == "" ?
+               $"https://api.mangadex.org/manga?limit=100&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order{sort}" :
+               $"https://api.mangadex.org/manga?limit=100&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&title={title}&order{sort}";
+
+            System.Diagnostics.Debug.WriteLine("Title: " + title);
+
+            List<Manga> SearchManga = await FetchData(QueryURL);
+
+            IsLoading = false;
+
+            if (SearchManga == null)
+            {
+                return;
+            }
+
+            foreach (var manga in SearchManga)
+            {
+                this.AdvanceSearchManga.Add(manga);
+            }
+        } catch (TaskCanceledException ex)
+        {
+            System.Diagnostics.Debug.WriteLine("Task Canceled: " + ex.Message);
+        }
     }
 
-    private async void LoadFetchData()
+    public async void LoadFetchData()
     {
         IsLoading = true;
 
@@ -121,6 +141,8 @@ class SearchPageViewModels : INotifyPropertyChanged
                         });
                     }
 
+                    System.Diagnostics.Debug.WriteLine(mangas.Count);
+
                     return mangas;
                 }
                 else
@@ -131,6 +153,7 @@ class SearchPageViewModels : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(url);
                 System.Diagnostics.Debug.WriteLine($"An error occurred: {ex.Message}");
                 return null;
             }
