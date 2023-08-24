@@ -117,4 +117,9 @@ public sealed partial class HomePage : Page
 
         return titles;
     }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        Shell.CurrentShell.SetContentFrame(typeof(MostFollowsMangaPage));
+    }
 }

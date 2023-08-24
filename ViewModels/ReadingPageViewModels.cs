@@ -86,7 +86,7 @@ internal class ReadingPageViewModels : INotifyPropertyChanged
 
                     List<MangaChapterVolume> Chapter = new();
 
-                    for (int i = 0; i < 2; i++)
+                    for (var i = 0; i < 2; i++)
                     {
                         HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=500&translatedLanguage[]=en&includes[]=scanlation_group&includes[]=user&includeExternalUrl=0&order[volume]=desc&order[chapter]=desc&offset={i * 500}&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
                         

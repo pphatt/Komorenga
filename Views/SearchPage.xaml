@@ -24,53 +24,6 @@
         <converter:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
         <converter:NoResultWasFound x:Key="NoResultWasFound"/>
 
-        <DataTemplate x:Name="ManagaTemplate" x:DataType="models:Manga">
-            <Grid PointerPressed="Grid_PointerPressed"
-                  Width="200" Height="400" Padding="5"
-            >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="8.5*" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="1.5*" />
-                </Grid.RowDefinitions>
-
-                <StackPanel
-                    Grid.Row="0"
-                    CornerRadius="8"
-                    BorderThickness="1"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                >
-                    <Image Width="auto" Height="270"
-                           HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
-                        <Image.Source>
-                            <BitmapImage UriSource="{x:Bind poster}" />
-                        </Image.Source>
-                    </Image>
-                </StackPanel>
-
-                <TextBlock 
-                    Grid.Row="1" 
-                    TextWrapping="Wrap" 
-                    TextTrimming="WordEllipsis"
-                    MaxLines="2"
-                    FontSize="16"
-                    FontWeight="SemiBold"
-                    Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
-                    ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
-                ></TextBlock>
-                <TextBlock 
-                    Grid.Row="2"
-                    TextWrapping="Wrap" 
-                    TextTrimming="WordEllipsis" 
-                    MaxLines="2"
-                    Text="{x:Bind author}"
-                    ToolTipService.ToolTip="{x:Bind author}"
-                ></TextBlock>
-            </Grid>
-        </DataTemplate>
-
         <Style x:Key="CustomAppBarButtonStyle" TargetType="AppBarButton">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -219,14 +172,14 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
+
                 <TextBlock Grid.Row="0" 
                            Margin="0 200 0 0"
                            HorizontalAlignment="Center" VerticalAlignment="Center"
                            Text="No result was found" FontSize="20" FontWeight="SemiBold" 
                            Visibility="{x:Bind ViewModel.AdvanceSearchManga.Count, Mode=OneWay, Converter={StaticResource NoResultWasFound}}"
                 />
-                
+
                 <controls:AdaptiveGridView 
                         Grid.Row="0"
                         Name="AdaptiveGridViewControl"
@@ -236,9 +189,57 @@
                         DesiredWidth="215"
                         SelectionMode="Single"
                         IsItemClickEnabled="True"
-                        ItemTemplate="{StaticResource ManagaTemplate}" 
                         ItemsSource="{x:Bind ViewModel.AdvanceSearchManga, Mode=OneWay}" 
-                />
+                >
+                    <controls:AdaptiveGridView.ItemTemplate>
+                        <DataTemplate x:Name="ManagaTemplate" x:DataType="models:Manga">
+                            <Grid PointerPressed="Grid_PointerPressed"
+                                  Width="200" Height="400" Padding="5"
+                            >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="8.5*" />
+                                    <RowDefinition Height="2*" />
+                                    <RowDefinition Height="1.5*" />
+                                </Grid.RowDefinitions>
+
+                                <StackPanel
+                                    Grid.Row="0"
+                                    CornerRadius="8"
+                                    BorderThickness="1"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                >
+                                    <Image Width="auto" Height="270"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{x:Bind poster}" />
+                                        </Image.Source>
+                                    </Image>
+                                </StackPanel>
+
+                                <TextBlock 
+                                    Grid.Row="1" 
+                                    TextWrapping="Wrap" 
+                                    TextTrimming="WordEllipsis"
+                                    MaxLines="2"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    Text="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                    ToolTipService.ToolTip="{x:Bind attributes.title, Converter={StaticResource ParserTitle}}"
+                                ></TextBlock>
+                                <TextBlock 
+                                    Grid.Row="2"
+                                    TextWrapping="Wrap" 
+                                    TextTrimming="WordEllipsis" 
+                                    MaxLines="2"
+                                    Text="{x:Bind author}"
+                                    ToolTipService.ToolTip="{x:Bind author}"
+                                ></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </controls:AdaptiveGridView.ItemTemplate>
+                </controls:AdaptiveGridView>
             </Grid>
         </Grid>
     </Grid>
