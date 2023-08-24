@@ -26,12 +26,79 @@
         <converter:ParserChapterCount  x:Key="ParserChapterCount" />
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converter:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+
+        <Style x:Key="HoverStyle" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" />
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}" />
+            
+            <!--<Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}" />-->
+            <!--<Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />-->
+            
+            <Setter Property="Padding" Value="16,12,16,12" />
+            
+            <!--<Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />-->
+            
+            <!--<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />-->
+            
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+            <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+            <Setter Property="FocusVisualMargin" Value="-3" />
+            <Setter Property="BackgroundSizing" Value="InnerBorderEdge" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <!-- ... other states ... -->
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="RootGrid">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                    AutomationProperties.AccessibilityView="Raw"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    ContentTransitions="{TemplateBinding ContentTransitions}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ProgressRing IsActive="True"/>
         </StackPanel>
+
+        <Grid Canvas.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Button 1" 
+                    Style="{StaticResource HoverStyle}"
+            />
+            
+            <Button Grid.Column="1" Content="Button 1" 
+                    Background="{ThemeResource ControlFillColorDefaultBrush}" 
+                    Margin="10 0 0 0"
+            />
+        </Grid>
 
         <ScrollViewer
             VerticalAlignment="Stretch" 
