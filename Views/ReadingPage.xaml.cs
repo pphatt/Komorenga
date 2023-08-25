@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using CommunityToolkit.Mvvm.Messaging;
 using Komorenga.Models;
@@ -32,34 +33,36 @@ namespace Komorenga.Views
         {
             if (sender is Button button && button.DataContext is MangaChapterVolume chapter)
             {
+                MangaChapterVolumeAttributes attributes = (MangaChapterVolumeAttributes)button.Tag;
+
+                ObservableCollection<Manga> manga = ViewModel.Manga;
+
                 var m_window = new Window();
-                m_window.Content = new ReadingMangaPage();
-                m_window.Title = GetCurrentReadingMangaTitle(button);
+                m_window.Content = new ReadingMangaPage(manga, chapter, m_window);
+                m_window.Title = GetCurrentChapterTitle(attributes);
                 m_window.Activate();
 
                 WeakReferenceMessenger.Default.Send(chapter);
             }
         }
 
-        private string GetCurrentReadingMangaTitle(Button button)
+        private string GetCurrentChapterTitle(MangaChapterVolumeAttributes attributes)
         {
             string title = "";
 
-            MangaChapterVolumeAttributes ButtonTag = (MangaChapterVolumeAttributes)button.Tag;
-
-            if (ButtonTag.volume != null)
+            if (attributes.volume != null)
             {
-                title += $"Vol. {ButtonTag.volume} ";
+                title += $"Vol. {attributes.volume} ";
             }
 
-            if (ButtonTag.chapter != null)
+            if (attributes.chapter != null)
             {
-                title += $"Ch. {ButtonTag.chapter} ";
+                title += $"Ch. {attributes.chapter} ";
             }
 
-            if (ButtonTag.title != null)
+            if (attributes.title != null)
             {
-                title += $"- {ButtonTag.title}";
+                title += $"- {attributes.title}";
             }
 
             return title;

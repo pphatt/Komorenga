@@ -48,6 +48,24 @@ class ReadingMangaPageViewModels : INotifyPropertyChanged
         LoadFetchData();
     }
 
+    public async void GetNextAndPreviousChapter(string id)
+    {
+        ChapterData.Clear();
+
+        IsLoading = true;
+
+        Task<List<MangaChapterImageUrl>> MangaChapterImageAPIClient = FetchData($"https://api.mangadex.org/at-home/server/{id}");
+
+        List<MangaChapterImageUrl> MangaChapterImage = await MangaChapterImageAPIClient;
+
+        IsLoading = false;
+
+        for (int i = 0; i < MangaChapterImage.Count; i++)
+        {
+            Chapter.Add(MangaChapterImage[i]);
+        }
+    }
+
     private void LoadFetchData()
     {
         WeakReferenceMessenger.Default.Register<MangaChapterVolume>(this, async (r, m) =>
