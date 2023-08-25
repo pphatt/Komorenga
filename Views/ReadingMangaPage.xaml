@@ -29,7 +29,7 @@
 
         <!--Style button just style with the background and fill colors section in the color section in winui 3 library-->
         <Style TargetType="Button" x:Key="CustomButtonStyle">
-            <Setter Property="Background" Value="#6c6c6c" />
+            <Setter Property="Background" Value="{ThemeResource ControlFillColorInputActiveBrush}" />
             <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}"/>
             
             <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}" />
