@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using Komorenga.Models;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.UI.Windowing;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,16 +29,6 @@ namespace Komorenga.Views;
 public sealed partial class ReadingMangaPage : Page
 {
     private MangaChapterVolume CurrentChapter
-    {
-        get; set;
-    }
-
-    private string PreviousChapterID
-    {
-        get; set;
-    }
-
-    private string NextChapterID
     {
         get; set;
     }
@@ -78,6 +69,60 @@ public sealed partial class ReadingMangaPage : Page
         ViewModel.GetChapter(CurrentChapter.id);
 
         shell.Title = GetCurrentChapterTitle();
+    }
+
+    private void PopularNewTitleScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+    {
+        System.Diagnostics.Debug.WriteLine(PopularNewTitleScrollViewer.VerticalOffset);
+    }
+
+    private async void ItemControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        await Task.Delay(1000);
+
+        List<double> gridHeights = new();
+
+        foreach (var item in ItemControl.Items)
+        {
+            var container = ItemControl.ContainerFromItem(item) as ContentPresenter;
+
+            if (container != null)
+            {
+                var grid = FindVisualChild<Grid>(container);
+
+                if (grid != null)
+                {
+                    double gridHeight = grid.ActualHeight;
+                    gridHeights.Add(gridHeight);
+                }
+            }
+        }
+
+        foreach (double height in gridHeights)
+        {
+            System.Diagnostics.Debug.WriteLine($"Grid Height: {height}");
+        }
+    }
+
+    private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+    {
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+            if (child is T result)
+            {
+                return result;
+            }
+            else
+            {
+                T descendant = FindVisualChild<T>(child);
+                if (descendant != null)
+                {
+                    return descendant;
+                }
+            }
+        }
+        return null;
     }
 
     private void Get(string direct)

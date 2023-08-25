@@ -129,11 +129,21 @@
             />
         </Grid>
 
+        <Grid Canvas.ZIndex="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="1" x:Name="TotalChapter" Text="{x:Bind ViewModel.Chapter}" FontSize="20" />
+        </Grid>
+
         <ScrollViewer
             VerticalAlignment="Stretch" 
             HorizontalContentAlignment="Stretch"
             HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
             x:Name="PopularNewTitleScrollViewer"
+            ViewChanged="PopularNewTitleScrollViewer_ViewChanged"
         >
             <StackPanel 
                 Orientation="Vertical"
@@ -142,6 +152,8 @@
                     ItemsSource="{x:Bind ViewModel.Chapter, Mode=OneWay}" 
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
+                    x:Name="ItemControl"
+                    Loaded="ItemControl_Loaded"
                 >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="models:MangaChapterImageUrl">
