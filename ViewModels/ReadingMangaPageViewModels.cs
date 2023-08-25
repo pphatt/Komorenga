@@ -53,26 +53,32 @@ class ReadingMangaPageViewModels : INotifyPropertyChanged
 
     public async void GetChapter(string id)
     {
-        IsLoading = true;
-        ChapterData.Clear();
-
-        cancellationTokenSource?.Cancel();
-        cancellationTokenSource = new CancellationTokenSource();
-
-        await Task.Delay(500, cancellationTokenSource.Token);
-
-        cancellationTokenSource.Token.ThrowIfCancellationRequested();
-
-        Task<List<MangaChapterImageUrl>> MangaChapterImageAPIClient = FetchData($"https://api.mangadex.org/at-home/server/{id}");
-
-        List<MangaChapterImageUrl> MangaChapterImage = await MangaChapterImageAPIClient;
-
-        for (var i = 0; i < MangaChapterImage.Count; i++)
+        try
         {
-            Chapter.Add(MangaChapterImage[i]);
-        }
+            IsLoading = true;
+            ChapterData.Clear();
 
-        IsLoading = false;
+            cancellationTokenSource?.Cancel();
+            cancellationTokenSource = new CancellationTokenSource();
+
+            await Task.Delay(500, cancellationTokenSource.Token);
+
+            cancellationTokenSource.Token.ThrowIfCancellationRequested();
+
+            Task<List<MangaChapterImageUrl>> MangaChapterImageAPIClient = FetchData($"https://api.mangadex.org/at-home/server/{id}");
+
+            List<MangaChapterImageUrl> MangaChapterImage = await MangaChapterImageAPIClient;
+
+            for (var i = 0; i < MangaChapterImage.Count; i++)
+            {
+                Chapter.Add(MangaChapterImage[i]);
+            }
+
+            IsLoading = false;
+        } catch (TaskCanceledException ex)
+        {
+            System.Diagnostics.Debug.WriteLine("Task Canceled: " + ex.Message);
+        }
     }
 
     private void LoadFetchData()
