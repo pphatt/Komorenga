@@ -32,11 +32,6 @@ public sealed partial class ReadingMangaPage : Page
         get; set;
     }
 
-    private string CurrentChapterID
-    {
-        get; set;
-    } 
-
     private string PreviousChapterID
     {
         get; set;
@@ -62,79 +57,71 @@ public sealed partial class ReadingMangaPage : Page
         this.InitializeComponent();
         this.Manga = Manga;
         this.CurrentChapter = chapter;
-        this.CurrentChapterID = chapter.id;
         this.shell = shell;
+
+        Get("");
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        GetPreviousChapter();
+        Get("previous");
 
-        ViewModel.GetNextAndPreviousChapter(CurrentChapterID);
+        ViewModel.GetChapter(CurrentChapter.id);
 
         shell.Title = GetCurrentChapterTitle();
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
-        GetNextChapter();
+        Get("next");
 
-        ViewModel.GetNextAndPreviousChapter(CurrentChapterID);
+        ViewModel.GetChapter(CurrentChapter.id);
 
         shell.Title = GetCurrentChapterTitle();
     }
 
-    private void GetPreviousChapter()
+    private void Get(string direct)
     {
-        System.Diagnostics.Debug.WriteLine("Current: " + CurrentChapterID);
-        System.Diagnostics.Debug.WriteLine("Next: " + NextChapterID);
-        System.Diagnostics.Debug.WriteLine("Previous: " + PreviousChapterID);
-        System.Diagnostics.Debug.WriteLine("Title: " + CurrentChapter.attributes.title);
-        System.Diagnostics.Debug.WriteLine("");
+        List<MangaChapterVolume> chapter = Manga[0].chapter;
 
-        for (var i = 0; i < Manga[0].chapter.Count; i++)
+        for (var i = 0; i < chapter.Count; i++)
         {
-            if (Manga[0].chapter[i].id == CurrentChapterID)
+            if (chapter[i].id == CurrentChapter.id)
             {
-                if (i - 1 >= 0)
+                switch (direct)
                 {
-                    NextChapterID = Manga[0].chapter[i - 1].id;
+                    case "next":
+                        if (i > 0)
+                        {
+                            CurrentChapter = chapter[--i];
+
+                            Next_Chapter_Button.IsEnabled = true;
+                            Previous_Chapter_Button.IsEnabled = true;
+                        }
+
+                        break;
+                    case "previous":
+                        if (i < chapter.Count)
+                        {
+                            CurrentChapter = chapter[++i];
+
+                            Next_Chapter_Button.IsEnabled = true;
+                            Previous_Chapter_Button.IsEnabled = true;
+                        }
+
+                        break;
+                    default:
+                        break;
                 }
 
-                if (i + 1 < Manga[0].chapter.Count)
+                if (i == 0)
                 {
-                    CurrentChapterID = Manga[0].chapter[i + 1].id;
-
-                    this.CurrentChapter = Manga[0].chapter[i + 1];
+                    Next_Chapter_Button.IsEnabled = false;
                 }
 
-                break;
-            }
-        }
-
-        System.Diagnostics.Debug.WriteLine("Current: " + CurrentChapterID);
-        System.Diagnostics.Debug.WriteLine("Next: " + NextChapterID);
-        System.Diagnostics.Debug.WriteLine("Previous: " + PreviousChapterID);
-        System.Diagnostics.Debug.WriteLine("Title: " + CurrentChapter.attributes.title);
-        System.Diagnostics.Debug.WriteLine("");
-    }
-
-    private void GetNextChapter()
-    {
-        for (var i = 0; i < Manga[0].chapter.Count; i++)
-        {
-            if (Manga[0].chapter[i].id == CurrentChapterID)
-            {
-                if (i - 1 >= 0)
+                if (i == chapter.Count - 1)
                 {
-                    CurrentChapterID = Manga[0].chapter[i - 1].id;
-
-                    this.CurrentChapter = Manga[0].chapter[i - 1];
-                }
-
-                if (i + 1 < Manga[0].chapter.Count)
-                {
-                    this.PreviousChapterID = Manga[0].chapter[i + 1].id;
+                    Previous_Chapter_Button.IsEnabled = false;
                 }
 
                 break;
@@ -148,20 +135,18 @@ public sealed partial class ReadingMangaPage : Page
 
         if (CurrentChapter.attributes.volume != null)
         {
-            title += $"Vol. {this.CurrentChapter.attributes.volume} ";
+            title += $"Vol. {CurrentChapter.attributes.volume} ";
         }
 
         if (CurrentChapter.attributes.chapter != null)
         {
-            title += $"Ch. {this.CurrentChapter.attributes.chapter} ";
+            title += $"Ch. {CurrentChapter.attributes.chapter} ";
         }
 
         if (CurrentChapter.attributes.title != null)
         {
-            title += $"- {this.CurrentChapter.attributes.title}";
+            title += $"- {CurrentChapter.attributes.title}";
         }
-
-        System.Diagnostics.Debug.WriteLine(title);
 
         return title;
     }

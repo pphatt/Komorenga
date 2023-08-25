@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using Komorenga.Models;
@@ -41,6 +42,8 @@ class ReadingMangaPageViewModels : INotifyPropertyChanged
         }
     }
 
+    private CancellationTokenSource cancellationTokenSource = new();
+
     public ReadingMangaPageViewModels()
     {
         ChapterData = new ObservableCollection<MangaChapterImageUrl>();
@@ -48,22 +51,28 @@ class ReadingMangaPageViewModels : INotifyPropertyChanged
         LoadFetchData();
     }
 
-    public async void GetNextAndPreviousChapter(string id)
+    public async void GetChapter(string id)
     {
+        IsLoading = true;
         ChapterData.Clear();
 
-        IsLoading = true;
+        cancellationTokenSource?.Cancel();
+        cancellationTokenSource = new CancellationTokenSource();
+
+        await Task.Delay(500, cancellationTokenSource.Token);
+
+        cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
         Task<List<MangaChapterImageUrl>> MangaChapterImageAPIClient = FetchData($"https://api.mangadex.org/at-home/server/{id}");
 
         List<MangaChapterImageUrl> MangaChapterImage = await MangaChapterImageAPIClient;
 
-        IsLoading = false;
-
-        for (int i = 0; i < MangaChapterImage.Count; i++)
+        for (var i = 0; i < MangaChapterImage.Count; i++)
         {
             Chapter.Add(MangaChapterImage[i]);
         }
+
+        IsLoading = false;
     }
 
     private void LoadFetchData()

@@ -106,6 +106,7 @@
                     Padding="10 6 10 6"
                     Background="Black"
                     Click="Button_Click"
+                    x:Name="Previous_Chapter_Button"
             />
             
             <Button Grid.Column="1" Content="Next Chapter" 
@@ -113,6 +114,7 @@
                     Padding="10 6 10 6"
                     Background="Black"
                     Click="Button_Click_1"
+                    x:Name="Next_Chapter_Button"
             />
         </Grid>
 
