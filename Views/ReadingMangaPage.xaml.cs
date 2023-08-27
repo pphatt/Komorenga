@@ -117,6 +117,8 @@ public sealed partial class ReadingMangaPage : Page
     private void Get(string direct)
     {
         ChapterImageGridHeight.Clear();
+        CurrentReadingChapterPage = 1;
+        CurrentReadingPage.Text = "1";
 
         List<MangaChapterVolume> chapter = Manga[0].chapter;
 
