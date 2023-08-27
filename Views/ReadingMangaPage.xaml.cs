@@ -80,22 +80,12 @@ public sealed partial class ReadingMangaPage : Page
     private void PopularNewTitleScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
     {
         double height = PopularNewTitleScrollViewer.VerticalOffset;
-        double sum = ChapterImageGridHeight[0];
-
-        if (height <= sum)
-        {
-            if (CurrentReadingChapterPage == 1)
-            {
-                return;
-            }
-
-            CurrentReadingChapterPage = 1;
-            CurrentReadingPage.Text = "1";
-            return;
-        }
+        double sum = 0;
 
         for (var i = 1; i <= ChapterImageGridHeight.Count; i++)
         {
+            sum += ChapterImageGridHeight[i - 1];
+
             if (sum - ChapterImageGridHeight[i - 1] < height && height <= sum)
             {
                 if (CurrentReadingChapterPage == i)
@@ -107,8 +97,6 @@ public sealed partial class ReadingMangaPage : Page
                 CurrentReadingPage.Text = $"{i}";
                 return;
             }
-
-            sum += ChapterImageGridHeight[i];
         }
     }
 
