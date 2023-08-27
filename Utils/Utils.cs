@@ -259,8 +259,6 @@ public class NoResultWasFound : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        System.Diagnostics.Debug.WriteLine(value);
-
         if (value is int count && count == 0)
         {
             return Visibility.Visible;

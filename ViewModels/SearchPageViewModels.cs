@@ -69,8 +69,6 @@ class SearchPageViewModels : INotifyPropertyChanged
                $"https://api.mangadex.org/manga?limit=100&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&order{sort}" :
                $"https://api.mangadex.org/manga?limit=100&offset=0&includes[]=cover_art&includes[]=artist&includes[]=author&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&title={title}&order{sort}";
 
-            System.Diagnostics.Debug.WriteLine("Title: " + title);
-
             List<Manga> SearchManga = await FetchData(QueryURL);
 
             IsLoading = false;

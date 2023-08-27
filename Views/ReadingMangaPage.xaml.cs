@@ -18,6 +18,8 @@ using Komorenga.Models;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.UI.Windowing;
 using System.Threading.Tasks;
+using Windows.UI.Input.Preview.Injection;
+using Windows.UI.WebUI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -42,6 +44,10 @@ public sealed partial class ReadingMangaPage : Page
     {
         get; set;
     }
+
+    private List<double> ChapterImageGridHeight = new();
+
+    private int CurrentReadingChapterPage = 1;
 
     public ReadingMangaPage(ObservableCollection<Manga> Manga, MangaChapterVolume chapter, Window shell)
     {
@@ -73,60 +79,57 @@ public sealed partial class ReadingMangaPage : Page
 
     private void PopularNewTitleScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine(PopularNewTitleScrollViewer.VerticalOffset);
+        double height = PopularNewTitleScrollViewer.VerticalOffset;
+        double sum = ChapterImageGridHeight[0];
+
+        if (height <= sum)
+        {
+            if (CurrentReadingChapterPage == 1)
+            {
+                return;
+            }
+
+            CurrentReadingChapterPage = 1;
+            CurrentReadingPage.Text = "1";
+            return;
+        }
+
+        for (var i = 1; i <= ChapterImageGridHeight.Count; i++)
+        {
+            if (sum - ChapterImageGridHeight[i - 1] < height && height <= sum)
+            {
+                if (CurrentReadingChapterPage == i)
+                {
+                    return;
+                }
+
+                CurrentReadingChapterPage = i;
+                CurrentReadingPage.Text = $"{i}";
+                return;
+            }
+
+            sum += ChapterImageGridHeight[i];
+        }
     }
 
-    private async void ItemControl_Loaded(object sender, RoutedEventArgs e)
+    private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        await Task.Delay(1000);
-
-        List<double> gridHeights = new();
-
-        foreach (var item in ItemControl.Items)
+        if (sender is Grid grid)
         {
-            var container = ItemControl.ContainerFromItem(item) as ContentPresenter;
-
-            if (container != null)
+            if (ChapterImageGridHeight.Count == ViewModel.Chapter.Count)
             {
-                var grid = FindVisualChild<Grid>(container);
-
-                if (grid != null)
-                {
-                    double gridHeight = grid.ActualHeight;
-                    gridHeights.Add(gridHeight);
-                }
+                ChapterImageGridHeight.Clear();
             }
-        }
 
-        foreach (double height in gridHeights)
-        {
-            System.Diagnostics.Debug.WriteLine($"Grid Height: {height}");
+            System.Diagnostics.Debug.WriteLine($"Grid Height: {grid.ActualHeight}");
+            ChapterImageGridHeight.Add(grid.ActualHeight);
         }
-    }
-
-    private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
-    {
-        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-        {
-            var child = VisualTreeHelper.GetChild(parent, i);
-            if (child is T result)
-            {
-                return result;
-            }
-            else
-            {
-                T descendant = FindVisualChild<T>(child);
-                if (descendant != null)
-                {
-                    return descendant;
-                }
-            }
-        }
-        return null;
     }
 
     private void Get(string direct)
     {
+        ChapterImageGridHeight.Clear();
+
         List<MangaChapterVolume> chapter = Manga[0].chapter;
 
         for (var i = 0; i < chapter.Count; i++)
