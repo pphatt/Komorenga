@@ -130,11 +130,6 @@ class ReadingMangaPageViewModels : INotifyPropertyChanged
                         });
                     }
 
-                    for (var i = 0; i < returnChapterHashDataUrl.Count; i++)
-                    {
-                        System.Diagnostics.Debug.WriteLine(returnChapterHashDataUrl[i].url);
-                    }
-
                     return returnChapterHashDataUrl;
                 }
                 else

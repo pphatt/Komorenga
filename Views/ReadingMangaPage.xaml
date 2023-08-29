@@ -113,9 +113,11 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Canvas.ZIndex="1" HorizontalAlignment="Center" Margin="0 8" 
+            <Grid Grid.Row="0" Canvas.ZIndex="1" HorizontalAlignment="Center" Margin="0 8" Padding="5 0 5 2"
                   Background="{ThemeResource ControlFillColorInputActiveBrush}"
-                  Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Padding="4 0 4 0">
+                  Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                  CornerRadius="{StaticResource ControlCornerRadius}"
+            >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -138,6 +140,7 @@
                         Click="Button_Click"
                         x:Name="Previous_Chapter_Button"
                         Style="{ThemeResource CustomButtonStyle}"
+                        CornerRadius="{StaticResource ControlCornerRadius}"
                         FontSize="16"
                         FontWeight="SemiBold"
                 />

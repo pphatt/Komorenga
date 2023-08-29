@@ -129,6 +129,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <TextBlock 
@@ -142,6 +143,7 @@
                                             Text="{x:Bind attributes.title, Mode=OneWay, Converter={StaticResource ParserTitle}}"
                                             ToolTipService.ToolTip="{x:Bind attributes.title, Mode=OneWay, Converter={StaticResource ParserTitle}}"
                                         ></TextBlock>
+                                        
                                         <TextBlock 
                                             Grid.Row="1" 
                                             HorizontalAlignment="Left"
@@ -154,6 +156,7 @@
                                             ToolTipService.ToolTip="{x:Bind attributes.altTitles, Mode=OneWay, Converter={StaticResource ParserAltTitles}}"
                                             Margin="0 5 0 15"
                                         ></TextBlock>
+                                        
                                         <TextBlock 
                                             Grid.Row="2"
                                             TextWrapping="WrapWholeWords"
@@ -165,14 +168,15 @@
 
                                         <Grid Grid.Row="3" Margin="0 10 0 0">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="40" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <FontIcon Grid.Column="0" 
+                                            <FontIcon Grid.Column="0"
                                                       Glyph="{x:Bind attributes.status, Mode=OneWay, Converter={StaticResource GetStatusIcon}}" 
                                                       Margin="0 0 5 0" 
                                             />
+
                                             <TextBlock 
                                                 Grid.Column="1"
                                                 TextWrapping="WrapWholeWords"
@@ -182,6 +186,32 @@
                                                 ToolTipService.ToolTip="{x:Bind attributes.status, Mode=OneWay}"
                                             ></TextBlock>
                                         </Grid>
+
+                                        <Button Grid.Row="4" Margin="0 10 0 0" Padding="18 10 18 10" 
+                                                Foreground="{ThemeResource ControlOnImageFillColorTertiaryBrush}"
+                                                Style="{StaticResource AccentButtonStyle}"
+                                        >
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock 
+                                                    Grid.Column="0"
+                                                    TextWrapping="WrapWholeWords"
+                                                    FontSize="16"
+                                                    FontWeight="Medium"
+                                                    Text="Add To Library"
+                                                    ToolTipService.ToolTip="Add To Library"
+                                                    Margin="0 0 5 0"
+                                                ></TextBlock>
+                                                
+                                                <FontIcon Grid.Column="1" 
+                                                          Glyph="&#xE734;" 
+                                                />
+                                            </Grid>
+                                        </Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
