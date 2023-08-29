@@ -15,11 +15,14 @@ using Microsoft.UI.Xaml.Navigation;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using Komorenga.Models;
-using static System.Net.Mime.MediaTypeNames;
 using Microsoft.UI.Windowing;
 using System.Threading.Tasks;
 using Windows.UI.Input.Preview.Injection;
 using Windows.UI.WebUI;
+using Microsoft.UI.Xaml.Media.Imaging;
+using CommunityToolkit.WinUI.UI;
+using System.Net.Http;
+using Microsoft.UI.Xaml.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -45,7 +48,20 @@ public sealed partial class ReadingMangaPage : Page
         get; set;
     }
 
-    private List<double> ChapterImageGridHeight = new();
+    private class ChapterImageHeight
+    {
+        public int index
+        {
+            get; set; 
+        }
+
+        public double height
+        {
+            get; set;
+        }
+    }
+
+    private List<ChapterImageHeight> ChapterImageHeightCollection = new();
 
     private int CurrentReadingChapterPage = 1;
 
@@ -82,11 +98,11 @@ public sealed partial class ReadingMangaPage : Page
         double height = PopularNewTitleScrollViewer.VerticalOffset;
         double sum = 0;
 
-        for (var i = 1; i <= ChapterImageGridHeight.Count; i++)
+        for (var i = 1; i <= ChapterImageHeightCollection.Count; i++)
         {
-            sum += ChapterImageGridHeight[i - 1];
+            sum += ChapterImageHeightCollection[i - 1].height;
 
-            if (sum - ChapterImageGridHeight[i - 1] < height && height <= sum)
+            if (sum - ChapterImageHeightCollection[i - 1].height < height && height <= sum)
             {
                 if (CurrentReadingChapterPage == i)
                 {
@@ -100,23 +116,29 @@ public sealed partial class ReadingMangaPage : Page
         }
     }
 
-    private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+    private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        if (sender is Grid grid)
+        if (ChapterImageHeightCollection.Count == ViewModel.Chapter.Count)
         {
-            if (ChapterImageGridHeight.Count == ViewModel.Chapter.Count)
-            {
-                ChapterImageGridHeight.Clear();
-            }
+            ChapterImageHeightCollection.Clear();
+        }
 
-            System.Diagnostics.Debug.WriteLine($"Grid Height: {grid.ActualHeight}");
-            ChapterImageGridHeight.Add(grid.ActualHeight);
+        if (sender is Image image)
+        {
+            var index = ViewModel.Chapter.Select((item, index) => new { Item = item, Index = index }).First(i => i.Item.url == (string)image.Tag).Index;
+            ChapterImageHeightCollection.Add(new ChapterImageHeight { index = index, height = image.ActualHeight });
+
+            if (ChapterImageHeightCollection.Count == ViewModel.Chapter.Count)
+            {
+                ChapterImageHeightCollection.Sort((x, y) => x.index.CompareTo(y.index));
+                return;
+            }
         }
     }
 
     private void Get(string direct)
     {
-        ChapterImageGridHeight.Clear();
+        ChapterImageHeightCollection.Clear();
         CurrentReadingChapterPage = 1;
         CurrentReadingPage.Text = "1";
 

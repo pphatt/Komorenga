@@ -122,12 +122,17 @@ class ReadingMangaPageViewModels : INotifyPropertyChanged
 
                     List<MangaChapterImageUrl> returnChapterHashDataUrl = new();
 
-                    for (int i = 0; i < chapterHashDataUrl.Count; i++)
+                    for (var i = 0; i < chapterHashDataUrl.Count; i++)
                     {
                         returnChapterHashDataUrl.Add(new MangaChapterImageUrl
                         {
                             url = $"https://uploads.mangadex.org/data/{chapter.chapter.hash}/{chapterHashDataUrl[i]}"
                         });
+                    }
+
+                    for (var i = 0; i < returnChapterHashDataUrl.Count; i++)
+                    {
+                        System.Diagnostics.Debug.WriteLine(returnChapterHashDataUrl[i].url);
                     }
 
                     return returnChapterHashDataUrl;

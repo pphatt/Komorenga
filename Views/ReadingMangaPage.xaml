@@ -113,16 +113,18 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Canvas.ZIndex="1" HorizontalAlignment="Center" Margin="0 8">
+            <Grid Grid.Row="0" Canvas.ZIndex="1" HorizontalAlignment="Center" Margin="0 8" 
+                  Background="{ThemeResource ControlFillColorInputActiveBrush}"
+                  Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Padding="4 0 4 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Foreground="Black" Grid.Column="0" x:Name="CurrentReadingPage" Text="{x:Bind CurrentReadingChapterPage, Mode=OneWay}" FontWeight="Bold" FontSize="20" />
-                <TextBlock Foreground="Black" Grid.Column="1" Text="/" FontWeight="Bold" FontSize="20" Margin="3 0 3 0" />
-                <TextBlock Foreground="Black" Grid.Column="2" Text="{x:Bind ViewModel.Chapter.Count, Mode=OneWay}" FontWeight="Bold" FontSize="20" />
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Grid.Column="0" x:Name="CurrentReadingPage" Text="{x:Bind CurrentReadingChapterPage, Mode=OneWay}" FontWeight="Bold" FontSize="20" />
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Grid.Column="1" Text="/" FontWeight="Bold" FontSize="20" Margin="3 0 3 0" />
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Grid.Column="2" Text="{x:Bind ViewModel.Chapter.Count, Mode=OneWay}" FontWeight="Bold" FontSize="20" />
             </Grid>
 
             <Grid Grid.Row="1" Canvas.ZIndex="1" HorizontalAlignment="Center" Margin="0 10">
@@ -136,6 +138,8 @@
                         Click="Button_Click"
                         x:Name="Previous_Chapter_Button"
                         Style="{ThemeResource CustomButtonStyle}"
+                        FontSize="16"
+                        FontWeight="SemiBold"
                 />
 
                 <Button Grid.Column="1" Content="Next Chapter" 
@@ -144,6 +148,8 @@
                         Click="Button_Click_1"
                         x:Name="Next_Chapter_Button"
                         Style="{ThemeResource CustomButtonStyle}"
+                        FontSize="16"
+                        FontWeight="SemiBold"
                 />
             </Grid>
         </Grid>
@@ -166,20 +172,18 @@
                 >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="models:MangaChapterImageUrl">
-                            <Grid Width="Auto" HorizontalAlignment="Stretch" Margin="0 10 0 10" SizeChanged="Grid_SizeChanged">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Image HorizontalAlignment="Stretch" 
-                                       VerticalAlignment="Center" Stretch="Uniform"
-                                       MaxWidth="1000"
-                                >
-                                    <Image.Source>
-                                        <BitmapImage UriSource="{x:Bind url}" />
-                                    </Image.Source>
-                                </Image>
-                            </Grid>
+                            <Image 
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Center" Stretch="Uniform"
+                                MaxWidth="1000"
+                                Tag="{x:Bind url}"
+                                SizeChanged="Image_SizeChanged"
+                                Margin="0 10 0 10"
+                            >
+                                <Image.Source>
+                                    <BitmapImage UriSource="{x:Bind url}" />
+                                </Image.Source>
+                            </Image>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
