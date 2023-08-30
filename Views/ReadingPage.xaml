@@ -219,7 +219,7 @@
                             <Grid Grid.Row="1" Background="#272727" Margin="40 20 20 20">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
@@ -249,8 +249,8 @@
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="GridViewItem">
                                                         <ListViewItemPresenter
-                                                    PointerOverBackground="Transparent"
-                                                ></ListViewItemPresenter>
+                                                            PointerOverBackground="Transparent"
+                                                        ></ListViewItemPresenter>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
@@ -259,24 +259,17 @@
 
                                     <GridView.ItemTemplate>
                                         <DataTemplate x:DataType="models:MangaTag">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Button 
-                                                    Grid.Column="0"
-                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                                >
-                                                    <TextBlock 
-                                                        Text="{x:Bind attributes.name.en, Mode=OneWay}" 
-                                                        HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                        MinWidth="100" TextWrapping="NoWrap" Width="Auto"
-                                                    />
-                                                </Button>
-                                            </Grid>
+                                            <Button 
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                            >
+                                                <TextBlock 
+                                                    Text="{x:Bind attributes.name.en, Mode=OneWay}" 
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                    MinWidth="100" TextWrapping="NoWrap" Width="Auto"
+                                                />
+                                            </Button>
                                         </DataTemplate>
                                     </GridView.ItemTemplate>
                                 </GridView>
