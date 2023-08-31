@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using CommunityToolkit.Mvvm.Messaging;
 using Komorenga.Models;
+using Komorenga.Utils;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -12,7 +13,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using static Komorenga.Models.MangaJSONModels;
+using static Komorenga.Utils.HandleAppSettingJSON;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -66,6 +67,37 @@ namespace Komorenga.Views
             }
 
             return title;
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LibraryMangaBookMarked bookMarked = new LibraryMangaBookMarked { 
+                id = ViewModel.Manga[0].id, 
+                title = GetTitleByLanguage(ViewModel.Manga[0].attributes.title), 
+                posterUrl = ViewModel.Manga[0].poster, 
+                author = ViewModel.Manga[0].author 
+            };
+
+            List<LibraryMangaBookMarked> manga = await Instance.LoadMangaMarkedAsync();
+
+            manga.Add(bookMarked);
+
+            await Instance.SaveMangaMarkedAsync(manga);
+        }
+
+        private string GetTitleByLanguage(Language currentAttributeTitle)
+        {
+            if (currentAttributeTitle.en != null)
+            {
+                return currentAttributeTitle.en;
+            }
+
+            if (currentAttributeTitle.jaRo != null)
+            {
+                return currentAttributeTitle.jaRo;
+            }
+
+            return "Something went wrong... Try again";
         }
     }
 }

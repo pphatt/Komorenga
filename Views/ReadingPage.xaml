@@ -190,6 +190,7 @@
                                         <Button Grid.Row="4" Margin="0 10 0 0" Padding="18 10 18 10" 
                                                 Foreground="{ThemeResource ControlOnImageFillColorTertiaryBrush}"
                                                 Style="{StaticResource AccentButtonStyle}"
+                                                Click="Button_Click"
                                         >
                                             <Grid>
                                                 <Grid.ColumnDefinitions>

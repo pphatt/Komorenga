@@ -57,6 +57,11 @@
         >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Home" Tag="Komorenga.Views.HomePage" />
+                <NavigationViewItem Content="Library" Tag="Komorenga.Views.Library">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets/book-marked.png" ShowAsMonochrome="True" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Content="Advanced Search" Tag="Komorenga.Views.SearchPage">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xF78B;" />
