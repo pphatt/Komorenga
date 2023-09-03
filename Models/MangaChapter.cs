@@ -18,6 +18,11 @@ public class MangaChapterResponse
     {
         get; set;
     }
+
+    public string total
+    {
+        get; set;
+    }
 }
 
 public class MangaChapterVolume

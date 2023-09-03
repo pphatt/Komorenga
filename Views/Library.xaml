@@ -36,7 +36,7 @@
 
         <TextBlock
             Grid.Row="0"
-            Text="Most Follows Manga" FontWeight="Bold" FontSize="18" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}" 
+            Text="Library" FontWeight="Bold" FontSize="18" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}" 
         />
 
         <Grid 
@@ -68,7 +68,7 @@
 
                             <TextBlock
                                 Grid.Column="0"
-                                Text="Popular new titles" FontWeight="Bold" FontSize="16" 
+                                Text="Library Section" FontWeight="Bold" FontSize="16" 
                             />
 
                             <FontIcon 

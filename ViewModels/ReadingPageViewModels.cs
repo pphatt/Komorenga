@@ -87,10 +87,14 @@ internal class ReadingPageViewModels : INotifyPropertyChanged
 
                     List<MangaChapterVolume> Chapter = new();
 
-                    for (var i = 0; i < 2; i++)
+                    int total = 0;
+                    int limit = 500;
+                    int offset = 0;
+
+                    while (limit > 0)
                     {
-                        HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=500&translatedLanguage[]=en&includes[]=scanlation_group&includes[]=user&includeExternalUrl=0&order[volume]=desc&order[chapter]=desc&offset={i * 500}&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
-                        
+                        HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit={limit}&offset={offset}&translatedLanguage[]=en&includes[]=scanlation_group&includes[]=user&includeExternalUrl=0&order[volume]=desc&order[chapter]=desc&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
+
                         if (chapterResponse.IsSuccessStatusCode)
                         {
                             string chapterResponseData = await chapterResponse.Content.ReadAsStringAsync();
@@ -100,8 +104,42 @@ internal class ReadingPageViewModels : INotifyPropertyChanged
                             MangaChapterResponse mangaChapter = JsonConvert.DeserializeObject<MangaChapterResponse>(chapterResponseData);
 
                             Chapter.AddRange(mangaChapter.data);
+
+                            if (total == 0)
+                            {
+                                total = int.Parse(mangaChapter.total);
+                            }
+
+                            System.Diagnostics.Debug.WriteLine($"Total: {total}");
+                            System.Diagnostics.Debug.WriteLine($"Limit: {limit}");
+                            System.Diagnostics.Debug.WriteLine($"Offset: {offset}");
+
+                            if (total > 500)
+                            {
+                                offset += total - offset >= 500 ? 500 : total - limit;
+                                limit = total - offset >= 500 ? 500 : total - offset;
+                            } else
+                            {
+                                limit = 0;
+                            }
                         }
                     }
+
+                    //for (var i = 0; i < 2; i++)
+                    //{
+                    //    HttpResponseMessage chapterResponse = await httpClient.GetAsync($"https://api.mangadex.org/manga/{manga.data.id}/feed?limit=500&offset={i * 500}&translatedLanguage[]=en&includes[]=scanlation_group&includes[]=user&includeExternalUrl=0&order[volume]=desc&order[chapter]=desc&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic");
+                        
+                    //    if (chapterResponse.IsSuccessStatusCode)
+                    //    {
+                    //        string chapterResponseData = await chapterResponse.Content.ReadAsStringAsync();
+
+                    //        System.Diagnostics.Debug.WriteLine(chapterResponseData);
+
+                    //        MangaChapterResponse mangaChapter = JsonConvert.DeserializeObject<MangaChapterResponse>(chapterResponseData);
+
+                    //        Chapter.AddRange(mangaChapter.data);
+                    //    }
+                    //}
 
                     Manga.Add(new Manga
                     {
